@@ -1,4 +1,4 @@
-![Next Logo](./public/next.svg "Next.js Logo")
+<img src="https://github.com/Carlos-93/attendance-management/blob/master/public/next.svg" alt="Next Logo" title="Next.js Logo" width="150">
 
 ## Welcome to my attendance management system for in the school using RFID technology
 
