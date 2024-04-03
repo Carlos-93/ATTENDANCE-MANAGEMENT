@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "@/globals.css";
 
-// Fuente de texto de Google Fonts
-const inter = Inter({ subsets: ["latin"] });
+// Fuente de texto Montserrat con soporte para caracteres latinos
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 // Metadatos de la aplicación
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function RootLayout({
   // Devuelve el contenido de la aplicación
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={montserrat.className}>{children}</body>
     </html>
   );
 }
