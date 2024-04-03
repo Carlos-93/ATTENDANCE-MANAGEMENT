@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import "@/globals.css";
+import '@/app/ui/global.css';
 
 // Fuente de texto Montserrat con soporte para caracteres latinos
 const montserrat = Montserrat({ subsets: ["latin"] });
