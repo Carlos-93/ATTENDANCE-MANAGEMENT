@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import '@/app/globals.css';
+import '@/globals.css';
 
 // Fuente de texto Montserrat con soporte para caracteres latinos
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -17,8 +17,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  // Devuelve el contenido de la aplicación
   return (
     <html lang="en">
       <body className={montserrat.className}>{children}</body>
