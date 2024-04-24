@@ -10,3 +10,10 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+.bg-app {
+    background-image: url('/assets/images/bg.webp');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
