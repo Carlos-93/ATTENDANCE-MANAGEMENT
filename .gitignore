@@ -9,12 +9,6 @@
 # testing
 /coverage
 
-prisma/migrations
-
-.env
-
-.env.local
-
 # next.js
 /.next/
 /out/
