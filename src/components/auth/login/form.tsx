@@ -1,6 +1,6 @@
 'use client'
 
-export default function Login() {
+export default function Form() {
     return (
         <div className="bg-app flex flex-col items-center justify-center min-h-screen">
             <div className="w-full max-w-sm p-8 bg-gray-100 rounded-xl shadow-lg">
