@@ -1,4 +1,4 @@
-<img src="https://github.com/Carlos-93/attendance-management/blob/master/public/next.svg" alt="Next Logo" title="Next.js Logo" width="300">
+<p align="center"><img src="https://github.com/Carlos-93/attendance-management/blob/master/public/next.svg" alt="Next Logo" title="Next.js Logo" width="300"></p>
 
 ## Welcome to my attendance management system for in the school using RFID technology
 
