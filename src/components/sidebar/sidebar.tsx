@@ -1,5 +1,6 @@
-import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 // Interfaz para controlar el estado de los submenús
 interface SubMenuState {
@@ -43,7 +44,7 @@ export default function Sidebar() {
                     <input type="search" placeholder="Buscar curso..." className="pl-4 p-2 w-full bg-gray-700 text-white rounded my-4" id="search-course" name="search-course" />
 
                     <li>
-                        <a href="#" className="flex items-center gap-2 p-2 pl-4 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2">
+                        <Link href="/dashboard" className="flex items-center gap-2 p-2 pl-4 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-home">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
@@ -51,7 +52,7 @@ export default function Sidebar() {
                                 <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
                             </svg>
                             <span>Inicio</span>
-                        </a>
+                        </Link>
                     </li>
 
                     <li>
@@ -226,6 +227,7 @@ export default function Sidebar() {
                                         </li>
                                     </ul>
                                 )}
+
                                 <ul onClick={() => handleToggle('asix')} data-toggle="subMenu" className="flex items-center justify-between p-2 pl-4 mt-3 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2 cursor-pointer">
                                     <div className="flex items-center gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-device-laptop">
@@ -254,6 +256,7 @@ export default function Sidebar() {
                                         </li>
                                     </ul>
                                 )}
+
                                 <ul onClick={() => handleToggle('dam')} data-toggle="subMenu" className="flex items-center justify-between p-2 pl-4 mt-3 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2 cursor-pointer">
                                     <div className="flex items-center gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-device-laptop">
@@ -282,6 +285,7 @@ export default function Sidebar() {
                                         </li>
                                     </ul>
                                 )}
+
                                 <ul onClick={() => handleToggle('daw')} data-toggle="subMenu" className="flex items-center justify-between p-2 pl-4 mt-3 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2 cursor-pointer">
                                     <div className="flex items-center gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-device-laptop">
@@ -315,6 +319,7 @@ export default function Sidebar() {
                                         </li>
                                     </ul>
                                 )}
+                                
                                 <ul className="flex items-center justify-between p-2 pl-4 mt-3 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2 cursor-pointer">
                                     <div className="flex items-center gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-device-laptop">
@@ -334,14 +339,26 @@ export default function Sidebar() {
             <div>
                 <ul className="flex flex-col gap-3">
                     <li>
-                        <a href="#" className="flex p-2 pl-4 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2 cursor-pointer">
-                            Ajustes
-                        </a>
+                        <Link href="/dashboard" className="flex items-center gap-2 p-2 pl-4 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-help-hexagon">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M19.875 6.27c.7 .398 1.13 1.143 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z" />
+                                <path d="M12 16v.01" />
+                                <path d="M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483" />
+                            </svg>
+                            Soporte
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" className="flex p-2 pl-4 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2 cursor-pointer">
+                        <Link href="/" className="flex items-center gap-2 p-2 pl-4 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-logout">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                                <path d="M9 12h12l-3 -3" />
+                                <path d="M18 15l3 -3" />
+                            </svg>
                             Cerrar Sesión
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>

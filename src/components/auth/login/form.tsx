@@ -2,7 +2,7 @@
 
 export default function Form() {
     return (
-        <div className="bg-app flex flex-col items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center justify-center min-h-screen">
             <div className="w-full max-w-sm p-8 bg-gray-100 rounded-xl shadow-lg">
                 <h1 className="text-4xl font-bold text-center text-gray-900 mb-8">Iniciar sesión</h1>
                 <form className="space-y-6">
