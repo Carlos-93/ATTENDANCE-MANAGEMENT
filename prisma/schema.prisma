@@ -6355,11 +6355,11 @@ model mdl_search_simpledb_index {
   description1 String? @db.LongText
   description2 String? @db.LongText
 
-  // @@index([title, content, description1, description2], map: "mdl_search_simpledb_index_index")
   @@index([areaid], map: "mdl_searsimpinde_are_ix")
   @@index([contextid], map: "mdl_searsimpinde_con_ix")
   @@index([courseid], map: "mdl_searsimpinde_cou_ix")
   @@index([owneruserid, contextid], map: "mdl_searsimpinde_owncon_ix")
+  // @@index([title, content, description1, description2], map: "mdl_search_simpledb_index_index")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
