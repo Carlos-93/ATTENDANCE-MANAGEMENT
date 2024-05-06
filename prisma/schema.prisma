@@ -6359,7 +6359,6 @@ model mdl_search_simpledb_index {
   @@index([contextid], map: "mdl_searsimpinde_con_ix")
   @@index([courseid], map: "mdl_searsimpinde_cou_ix")
   @@index([owneruserid, contextid], map: "mdl_searsimpinde_owncon_ix")
-  // @@index([title, content, description1, description2], map: "mdl_search_simpledb_index_index")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -7275,7 +7274,7 @@ model mdl_url {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model mdl_user {
-  id                BigInt  @id @default(autoincrement())
+  id                Int     @id @default(autoincrement())
   auth              String  @default("manual") @db.VarChar(20)
   confirmed         Boolean @default(false)
   policyagreed      Boolean @default(false)
@@ -7283,11 +7282,11 @@ model mdl_user {
   suspended         Boolean @default(false)
   mnethostid        BigInt  @default(0)
   username          String  @default("") @db.VarChar(100)
-  password          String  @default("") @db.VarChar(255)
+  password          String
   idnumber          String  @default("") @db.VarChar(255)
   firstname         String  @default("") @db.VarChar(100)
   lastname          String  @default("") @db.VarChar(100)
-  email             String  @default("") @db.VarChar(100)
+  email             String  @unique
   emailstop         Boolean @default(false)
   phone1            String  @default("") @db.VarChar(20)
   phone2            String  @default("") @db.VarChar(20)
