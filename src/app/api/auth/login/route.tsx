@@ -7,7 +7,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 // Define una función asincrónica para verificar el correo electrónico y la contraseña del usuario
-async function verificarCredenciales(email: string, password: string): Promise<any> {
+export default async function validate(email: string, password: string): Promise<any> {
   try {
     // Busca un usuario en la base de datos que tenga el correo electrónico proporcionado
     const usuario = await prisma.mdl_user.findUnique({
@@ -37,6 +37,3 @@ async function verificarCredenciales(email: string, password: string): Promise<a
     await prisma.$disconnect()
   }
 }
-
-// Exporta la función verificarCredenciales
-export default verificarCredenciales

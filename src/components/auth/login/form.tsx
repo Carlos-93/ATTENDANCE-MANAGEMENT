@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import verificarCredenciales from '@/app/api/auth/login/form';
+import validate from '@/app/api/auth/login/route';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -12,7 +12,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const usuario = await verificarCredenciales(email, password);
+            const usuario = await validate(email, password);
             console.log('Inicio de sesión exitoso. Bienvenido, ', usuario.firstname);
             window.location.href = '/dashboard';
         } catch (error) {
