@@ -1,28 +1,17 @@
-// import Form from "@/app/api/auth/login/form";
 'use client';
+
 import { useState } from 'react';
 import verificarCredenciales from "./api/auth/login/form";
-//Importar ruta del dashboard
-import Dashboard from "@/app/dashboard/page";
-import { Metadata } from "next";
-import { APP_NAME } from "@/lib/constants";
-
-export function generateMetadata(): Metadata {
-  return {
-    title: `${APP_NAME} - Iniciar Sesión`,
-  };
-};
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string>(''); // Especifica el tipo de 'error' como string
+  const [error, setError] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      // Llama a la función para verificar las credenciales
       const usuario = await verificarCredenciales(email, password);
       console.log('Inicio de sesión exitoso. Bienvenido, ', usuario.firstname);
       window.location.href = '/dashboard';

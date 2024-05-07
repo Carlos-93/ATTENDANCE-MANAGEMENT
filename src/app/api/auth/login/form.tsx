@@ -1,4 +1,5 @@
 'use server';
+
 // Importa PrismaClient desde el archivo generado por Prisma
 import { PrismaClient } from '@prisma/client'
 
