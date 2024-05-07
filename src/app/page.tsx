@@ -1,7 +1,7 @@
 // import Form from "@/components/auth/login/form";
 'use client';
 import { useState } from 'react';
-import verificarCredenciales from "@/components/auth/login/form";
+import verificarCredenciales from "./api/auth/login/form";
 //Importar ruta del dashboard
 import Dashboard from "@/app/dashboard/page";
 

@@ -1,7 +1,7 @@
 'use client'
 
-import Sidebar from "./sidebar";
-import Header from "../header/header";
+import Sidebar from "../ui/sidebar";
+import Header from "../ui/header";
 
 export default function Dashboard() {
     return (
