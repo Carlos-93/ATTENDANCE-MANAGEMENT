@@ -1,24 +1,12 @@
 import { useState } from "react";
+import { subMenu } from "@/interfaces";
 import Link from "next/link";
 import Image from "next/image";
-
-// Interfaz para controlar el estado de los submenús
-interface SubMenuState {
-    eso: boolean;
-    bachillerato: boolean;
-    marketing: boolean;
-    informatica: boolean;
-    smx: boolean;
-    asix: boolean;
-    dam: boolean;
-    daw: boolean;
-    ceti: boolean;
-}
 
 export default function Sidebar() {
 
     // Estado para controlar la apertura de los submenús
-    const [isOpen, setIsOpen] = useState<SubMenuState>({
+    const [isOpen, setIsOpen] = useState<subMenu>({
         eso: false,
         bachillerato: false,
         marketing: false,
@@ -31,13 +19,13 @@ export default function Sidebar() {
     })
 
     // Función para manejar el estado de los submenús
-    const handleToggle = (menu: keyof SubMenuState) => {
+    function handleToggle(menu: keyof subMenu) {
         setIsOpen({ ...isOpen, [menu]: !isOpen[menu] });
     };
 
     return (
-        <div className="flex flex-col justify-between fixed inset-y-0 left-0 w-72 bg-gray-800 text-white p-4 pb-10 overflow-y-auto gap-20">
-            <div>
+        <nav className="flex flex-col justify-between fixed inset-y-0 left-0 w-72 bg-gray-800 text-white p-4 pb-10 overflow-y-auto gap-20">
+            <section>
                 <Image src="/assets/images/logo.png" alt="Logo Nexus Estudiantil" width={260} height={250} />
                 <ul className="flex flex-col gap-3">
 
@@ -319,7 +307,7 @@ export default function Sidebar() {
                                         </li>
                                     </ul>
                                 )}
-                                
+
                                 <ul className="flex items-center justify-between p-2 pl-4 mt-3 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2 cursor-pointer">
                                     <div className="flex items-center gap-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-device-laptop">
@@ -334,9 +322,9 @@ export default function Sidebar() {
                         )}
                     </li>
                 </ul>
-            </div>
+            </section>
 
-            <div>
+            <section>
                 <ul className="flex flex-col gap-3">
                     <li>
                         <Link href="/dashboard" className="flex items-center gap-2 p-2 pl-4 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2">
@@ -361,7 +349,7 @@ export default function Sidebar() {
                         </Link>
                     </li>
                 </ul>
-            </div>
-        </div>
+            </section>
+        </nav>
     );
 }
