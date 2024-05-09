@@ -1,12 +1,10 @@
 'use client';
 
-export default function Header() {
-    const user = {
-        name: "Roberto Manca",
-        role: "Profesor",
-        email: "roberto.manca@example.com",
-    };
+import { useState } from "react";
 
+export default function Header(user) {
+
+    console.log(user)
     return (
         <>
             <header className="sticky top-0 w-full flex justify-end items-center py-4 px-10 backdrop-blur-lg bg-black/60">
@@ -18,7 +16,7 @@ export default function Header() {
                         <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z" />
                     </svg>
                     <div className="flex flex-col">
-                        <span className="font-semibold">{user.name} ({user.role})</span>
+                        <span className="font-semibold">{user.email}</span>
                         <span className="text-gray-500">{user.email}</span>
                     </div>
                 </div>

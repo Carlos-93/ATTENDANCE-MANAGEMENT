@@ -4,6 +4,7 @@ import { useState } from "react";
 import { subMenu } from "@/interfaces";
 import Link from "next/link";
 import Image from "next/image";
+import { handleLogout } from "@/app/api/auth/login/route";
 
 
 export default function Sidebar() {
@@ -341,7 +342,7 @@ export default function Sidebar() {
                         </Link>
                     </li>
                     <li>
-                        <Link href="/" className="flex items-center gap-2 p-2 pl-4 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2">
+                        <button onClick={() => handleLogout()} className="flex w-full items-center gap-2 p-2 pl-4 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-logout">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
@@ -349,7 +350,7 @@ export default function Sidebar() {
                                 <path d="M18 15l3 -3" />
                             </svg>
                             Cerrar Sesión
-                        </Link>
+                        </button>
                     </li>
                 </ul>
             </section>
