@@ -1,5 +1,5 @@
 
-import { getUserSession } from "@/app/api/auth/login/route";
+import { getUserSession } from "@/lib/data";
 import { redirect } from "next/navigation";
 import Header from "@/components/ui/header";
 import Sidebar from "@/components/ui/sidebar";

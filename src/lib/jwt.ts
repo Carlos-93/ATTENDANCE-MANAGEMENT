@@ -1,34 +1,44 @@
-import { SignJWT, decodeJwt, jwtVerify, type JWTPayload, type JWTHeaderParameters } from "jose";
+import { SignJWT, jwtVerify, type JWTPayload, type JWTHeaderParameters } from "jose";
 
-// Mejor manejo de tipos y prácticas de seguridad
-const jwtSecret: string = process.env.JWT_SECRET || 'default_secret_key'; // Utiliza variable de entorno
+// Obtener la clave secreta de las variables de entorno
+const JWT_SECRET: string | undefined = process.env.JWT_SECRET;
 
-export function getJwtSecret(): Uint8Array {
-    return new TextEncoder().encode(jwtSecret);
+// Función para obtener la clave secreta de JWT de forma segura
+export function getJwtSecretKey(): Uint8Array {
+    if (!JWT_SECRET || JWT_SECRET.length === 0) {
+        throw new Error('The environment variable JWT_SECRET is not set or empty.');
+    }
+    return new TextEncoder().encode(JWT_SECRET);
 }
 
-export async function generateAccessToken(userId: string): Promise<string> {
+// Función para generar un token de acceso
+export async function generateAccessToken(userId: number): Promise<string> {
     return new SignJWT({ userId })
         .setProtectedHeader({ alg: 'HS256' } as JWTHeaderParameters)
         .setIssuedAt()
         .setExpirationTime('7d')
-        .sign(getJwtSecret());
+        .sign(getJwtSecretKey());
 }
 
+// Función para verificar la validez de un token
 export async function verifyToken(token: string): Promise<boolean> {
-    if (!token) return false;
-
+    if (!token) {
+        return false;
+    }
     try {
-        await jwtVerify(token, getJwtSecret());
+        await jwtVerify(token, getJwtSecretKey());
         return true;
     } catch (error) {
-        console.error("Error verifying JWT:", error);
         return false;
     }
 }
 
+// Función para decodificar un token
 export async function decodeToken(token: string): Promise<JWTPayload | false> {
-    const isValid = await verifyToken(token);
-    if (!isValid) return false;
-    return decodeJwt(token);
+    try {
+        const result = await jwtVerify(token, getJwtSecretKey());
+        return result.payload;
+    } catch (error) {
+        return false;
+    }
 }

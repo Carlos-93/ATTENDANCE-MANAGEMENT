@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import validate from '@/app/api/auth/login/route';
+import validate from '@/lib/data';
 
 export default function Login() {
     const [email, setEmail] = useState('');
