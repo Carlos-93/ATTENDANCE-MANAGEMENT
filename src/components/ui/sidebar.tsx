@@ -32,7 +32,7 @@ export default function Sidebar() {
                 <Image src="/assets/images/logo.png" alt="Logo Nexus Estudiantil" width={260} height={250} />
                 <ul className="flex flex-col gap-3">
 
-                    <input type="search" placeholder="Buscar curso..." className="pl-4 p-2 w-full bg-gray-700 text-white rounded my-4" id="search-course" name="search-course" />
+                    <input type="search" placeholder="Buscar curso..." className="pl-4 p-2 w-full bg-gray-700 text-white rounded my-4 focus:outline-none focus:ring-1 focus:ring-teal-500" id="search-course" name="search-course" />
 
                     <li>
                         <Link href="/dashboard" className="flex items-center gap-2 p-2 pl-4 bg-gray-700 hover:bg-gray-900 hover:text-teal-500 transition-all ease-in-out duration-300 rounded hover:translate-x-2">
