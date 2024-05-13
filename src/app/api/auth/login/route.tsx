@@ -3,7 +3,6 @@
 import { PrismaClient } from '@prisma/client';
 import { cookies } from "next/headers";
 import { decodeToken, generateAccessToken } from '@/lib/jwt';
-import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 

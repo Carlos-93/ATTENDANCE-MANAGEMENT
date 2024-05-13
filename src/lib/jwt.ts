@@ -1,39 +1,34 @@
-import { SignJWT, decodeJwt, jwtVerify } from "jose";
+import { SignJWT, decodeJwt, jwtVerify, type JWTPayload, type JWTHeaderParameters } from "jose";
 
+// Mejor manejo de tipos y prácticas de seguridad
+const jwtSecret: string = process.env.JWT_SECRET || 'default_secret_key'; // Utiliza variable de entorno
 
-export function getJwtSecret() {
-    return 'dfasdohidasohidasohidasds';
+export function getJwtSecret(): Uint8Array {
+    return new TextEncoder().encode(jwtSecret);
 }
 
-export async function generateAccessToken(userId: any) {
-    return await new SignJWT({
-        userId
-    })
-        .setProtectedHeader({ alg: 'HS256' })
+export async function generateAccessToken(userId: string): Promise<string> {
+    return new SignJWT({ userId })
+        .setProtectedHeader({ alg: 'HS256' } as JWTHeaderParameters)
         .setIssuedAt()
         .setExpirationTime('7d')
-        .sign(new TextEncoder().encode(getJwtSecret()))
+        .sign(getJwtSecret());
 }
 
-export async function verifyToken(token: any) {
+export async function verifyToken(token: string): Promise<boolean> {
     if (!token) return false;
 
     try {
-        await jwtVerify(token, new TextEncoder().encode(getJwtSecret()));
-
+        await jwtVerify(token, getJwtSecret());
         return true;
-    } catch (error: any) {
-        if (error.name === 'TokenExpiredError') {
-            return false;
-        }
+    } catch (error) {
+        console.error("Error verifying JWT:", error);
         return false;
     }
 }
 
-export async function decodeToken(token: any) {
+export async function decodeToken(token: string): Promise<JWTPayload | false> {
     const isValid = await verifyToken(token);
-
     if (!isValid) return false;
-
-    return decodeJwt(token)
+    return decodeJwt(token);
 }
