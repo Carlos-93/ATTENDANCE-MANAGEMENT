@@ -12,8 +12,8 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const usuario = await validate(email, password);
-            console.log('Inicio de sesión exitoso. Bienvenido, ', usuario.firstname);
+            const user = await validate(email, password);
+            console.log('Inicio de sesión exitoso. Bienvenido, ', user.firstname);
             window.location.href = '/dashboard';
         } catch (error) {
             setError((error as Error).message);
