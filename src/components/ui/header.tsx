@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 export default function Header() {
-    const [user, setUser] = useState<{ firstname: string; email: string; role: string } | null>(null);
+    const [user, setUser] = useState<{ firstname: string; email: string, role: string } | null>(null);
 
     useEffect(() => {
         async function fetchUser() {
@@ -12,7 +12,6 @@ export default function Header() {
             const userData = await response.json();
             setUser(userData);
         }
-
         fetchUser();
     }, []);
 
@@ -30,13 +29,15 @@ export default function Header() {
                 </svg>
                 <div className="flex flex-col">
                     {user ? (
-                        <>
-                            <span className="font-semibold">{user.firstname}</span>
+                        <article className='flex flex-col'>
+                            <div className='flex gap-1'>
+                                <span className="font-semibold">{user.firstname}</span>
+                                <span className="text-gray-500">({user.role})</span>
+                            </div>
                             <span className="text-gray-500">{user.email}</span>
-                            <span className="text-gray-500">{user.role}</span>
-                        </>
+                        </article>
                     ) : (
-                        <span>Loading User...</span>
+                        <span>Loading user...</span>
                     )}
                 </div>
             </div>

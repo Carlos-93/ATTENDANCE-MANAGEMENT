@@ -1,30 +1,31 @@
+'use server';
+
 import { PrismaClient } from '@prisma/client';
-import { cookies } from "next/headers";
+import { cookies } from 'next/headers';
 import { decodeToken, generateAccessToken } from '@/lib/jwt';
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
+// Función donde se verifica si las credenciales del usuario son correctas
 export default async function validate(email: string, password: string): Promise<any> {
     try {
         const user = await prisma.mdl_user.findUnique({
-            where: {
-                email: email
-            }
+            where: { email }
         });
 
         if (!user) {
-            throw new Error('El correo electrónico proporcionado no está registrado.');
+            throw new Error('El correo electrónico proporcionado no está registrado');
         }
 
-        if (user.password !== password) {
-            throw new Error('La contraseña proporcionada es incorrecta.');
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            throw new Error('La contraseña proporcionada es incorrecta');
         }
 
         const token = await generateAccessToken({ id: user.id, firstname: user.firstname, email: user.email, role: user.role });
 
-        cookies().set({
-            name: 'access-token',
-            value: token,
+        cookies().set('access-token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
@@ -38,6 +39,7 @@ export default async function validate(email: string, password: string): Promise
     }
 }
 
+// Función donde se obtiene la información del usuario a partir del token de acceso
 export async function getUserSession() {
     try {
         const cookieStore = cookies();
@@ -46,7 +48,6 @@ export async function getUserSession() {
         if (!accessToken) return false;
 
         const decoded = await decodeToken(accessToken.value);
-
         if (!decoded || !decoded.userId) return false;
 
         return { firstname: decoded.firstname, email: decoded.email, role: decoded.role };
@@ -56,6 +57,7 @@ export async function getUserSession() {
     }
 }
 
+// Función donde se obtiene el ID del usuario a partir del token de acceso
 export async function getUserId() {
     try {
         const cookieStore = cookies();
@@ -64,7 +66,6 @@ export async function getUserId() {
         if (!accessToken) return false;
 
         const decoded = await decodeToken(accessToken.value);
-
         if (!decoded || !decoded.userId) return false;
 
         return decoded.userId;
@@ -74,6 +75,7 @@ export async function getUserId() {
     }
 }
 
+// Función donde se cierra la sesión del usuario
 export async function destroySession() {
     cookies().delete('access-token');
 }
