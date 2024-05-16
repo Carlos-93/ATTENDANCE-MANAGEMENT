@@ -1,5 +1,3 @@
-'use server';
-
 import { PrismaClient } from '@prisma/client';
 import { cookies } from "next/headers";
 import { decodeToken, generateAccessToken } from '@/lib/jwt';
@@ -8,23 +6,22 @@ const prisma = new PrismaClient();
 
 export default async function validate(email: string, password: string): Promise<any> {
     try {
-        const usuario = await prisma.mdl_user.findUnique({
+        const user = await prisma.mdl_user.findUnique({
             where: {
                 email: email
             }
         });
 
-        if (!usuario) {
+        if (!user) {
             throw new Error('El correo electrónico proporcionado no está registrado.');
         }
 
-        if (usuario.password !== password) {
+        if (user.password !== password) {
             throw new Error('La contraseña proporcionada es incorrecta.');
         }
 
-        const token = await generateAccessToken(usuario.id);
+        const token = await generateAccessToken({ id: user.id, firstname: user.firstname, email: user.email, role: user.role });
 
-        // Establece la cookie utilizando el objeto `cookies`
         cookies().set({
             name: 'access-token',
             value: token,
@@ -34,8 +31,7 @@ export default async function validate(email: string, password: string): Promise
             path: '/'
         });
 
-        // Retorna el usuario si las credenciales son correctas
-        return usuario;
+        return user;
     } catch (error) {
         console.error('Error al verificar las credenciales:', error);
         throw error;
@@ -44,19 +40,16 @@ export default async function validate(email: string, password: string): Promise
 
 export async function getUserSession() {
     try {
-        const userId = await getUserId();
+        const cookieStore = cookies();
 
-        if (!userId) return false;
+        const accessToken = cookieStore.get('access-token');
+        if (!accessToken) return false;
 
-        const user = await prisma.mdl_user.findFirst({
-            where: {
-                id: userId
-            }
-        });
+        const decoded = await decodeToken(accessToken.value);
 
-        if (!user) return false;
+        if (!decoded || !decoded.userId) return false;
 
-        return user;
+        return { firstname: decoded.firstname, email: decoded.email, role: decoded.role };
     } catch (error) {
         console.error('Error en getUserSession:', error);
         return false;

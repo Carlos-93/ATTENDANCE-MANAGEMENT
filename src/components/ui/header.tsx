@@ -1,8 +1,21 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 export default function Header() {
+    const [user, setUser] = useState<{ firstname: string; email: string; role: string } | null>(null);
+
+    useEffect(() => {
+        async function fetchUser() {
+            const response = await fetch('/api/user');
+            const userData = await response.json();
+            setUser(userData);
+        }
+
+        fetchUser();
+    }, []);
+
     return (
         <header className="sticky top-0 w-full flex justify-between md:justify-end items-center py-2 md:py-5 px-5 backdrop-blur-lg bg-black/100">
             <div className="md:hidden">
@@ -16,8 +29,15 @@ export default function Header() {
                     <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z" />
                 </svg>
                 <div className="flex flex-col">
-                    <span className="font-semibold">Name User</span>
-                    <span className="text-gray-500">Email User</span>
+                    {user ? (
+                        <>
+                            <span className="font-semibold">{user.firstname}</span>
+                            <span className="text-gray-500">{user.email}</span>
+                            <span className="text-gray-500">{user.role}</span>
+                        </>
+                    ) : (
+                        <span>Loading User...</span>
+                    )}
                 </div>
             </div>
         </header>

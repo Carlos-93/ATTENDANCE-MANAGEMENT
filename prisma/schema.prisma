@@ -7281,6 +7281,7 @@ model mdl_user {
   deleted           Boolean @default(false)
   suspended         Boolean @default(false)
   mnethostid        BigInt  @default(0)
+  role              String  @default("student") @db.VarChar(30)
   username          String  @default("") @db.VarChar(100)
   password          String
   idnumber          String  @default("") @db.VarChar(255)
