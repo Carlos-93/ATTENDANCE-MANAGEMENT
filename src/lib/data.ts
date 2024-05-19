@@ -23,7 +23,7 @@ export default async function validate(email: string, password: string): Promise
             throw new Error('La contraseña proporcionada es incorrecta');
         }
 
-        const token = await generateAccessToken({ id: user.id, firstname: user.firstname, email: user.email, role: user.role });
+        const token = await generateAccessToken({ id: user.id, firstname: user.firstname, lastname: user.lastname, email: user.email, role: user.role });
 
         cookies().set('access-token', token, {
             httpOnly: true,
@@ -50,7 +50,7 @@ export async function getUserSession() {
         const decoded = await decodeToken(accessToken.value);
         if (!decoded || !decoded.userId) return false;
 
-        return { firstname: decoded.firstname, email: decoded.email, role: decoded.role };
+        return { firstname: decoded.firstname, lastname: decoded.lastname, email: decoded.email, role: decoded.role };
     } catch (error) {
         console.error('Error en getUserSession:', error);
         return false;

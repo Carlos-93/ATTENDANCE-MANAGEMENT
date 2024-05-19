@@ -17,3 +17,7 @@
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
+
+.shadow {
+    box-shadow: 0 0 20px 0 rgb(20 184 166);
+}

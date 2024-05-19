@@ -11,8 +11,8 @@ export function getJwtSecretKey(): Uint8Array {
 }
 
 // Función donde se genera el token de acceso con la información del usuario
-export async function generateAccessToken(user: { id: number, firstname: string, email: string, role: string }): Promise<string> {
-    return new SignJWT({ userId: user.id, firstname: user.firstname, email: user.email, role: user.role })
+export async function generateAccessToken(user: { id: number, firstname: string, lastname: string, email: string, role: string }): Promise<string> {
+    return new SignJWT({ userId: user.id, firstname: user.firstname, lastname: user.lastname, email: user.email, role: user.role })
         .setProtectedHeader({ alg: 'HS256' } as JWTHeaderParameters)
         .setIssuedAt()
         .setExpirationTime('7d')
