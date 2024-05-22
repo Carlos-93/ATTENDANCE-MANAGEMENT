@@ -27,7 +27,7 @@ export default function Sidebar() {
     };
 
     return (
-        <nav className="hidden md:flex flex-col justify-between fixed inset-y-0 left-0 w-72 bg-gray-800 text-white p-4 pb-10 overflow-y-auto gap-20 z-10">
+        <nav className="hidden md:flex flex-col justify-between fixed inset-y-0 left-0 w-72 bg-gray-800 text-white p-4 pb-10 overflow-y-auto gap-20 z-10 select-none">
             <section>
                 <Image src="/assets/images/logo.png" alt="Logo Nexus Estudiantil" width={260} height={250} priority />
                 <ul className="flex flex-col gap-3">
