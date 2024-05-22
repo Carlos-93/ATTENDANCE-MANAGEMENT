@@ -29,7 +29,7 @@ export default function Login() {
             </aside>
             <main className='flex flex-col justify-center gap-10 bg-gray-800 px-5 md:px-0 -mt-20'>
                 <div className='flex justify-center'>
-                    <Image src={logoImg} alt="Logo NexusEstudiantil" width={350} height={350} />
+                    <Image src={logoImg} alt="Logo NexusEstudiantil" className='w-[14rem] sm:w-[18rem]' />
                 </div>
                 <section className="flex flex-col gap-8 max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-5 sm:p-10 shadow">
                     <h2 className='text-2xl sm:text-3xl text-white font-bold text-center'>Iniciar Sesión</h2>

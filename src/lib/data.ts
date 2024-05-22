@@ -75,6 +75,22 @@ export async function getUserId() {
     }
 }
 
+// Función donde se obtienen todos los fullname de los cursos
+export async function getCourses() {
+    try {
+        const courses = await prisma.mdl_course.findMany({
+            select: {
+                fullname: true
+            }
+        });
+        
+        return courses;
+    } catch (error) {
+        console.error('Error al obtener los cursos:', error);
+        return false;
+    }
+}
+
 // Función donde se cierra la sesión del usuario
 export async function destroySession() {
     cookies().delete('access-token');

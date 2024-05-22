@@ -9,8 +9,8 @@ export default function Header() {
     useEffect(() => {
         async function fetchUser() {
             const response = await fetch('/api/user');
-            const userData = await response.json();
-            setUser(userData);
+            const data = await response.json();
+            setUser(data);
         }
         fetchUser();
     }, []);
