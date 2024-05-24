@@ -1,6 +1,6 @@
 'use client';
 
-import Courses from "../ui/courses";
+import Courses from "./courses";
 
 export default function Dashboard() {
     return (

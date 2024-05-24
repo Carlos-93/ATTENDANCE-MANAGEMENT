@@ -2,7 +2,7 @@
 
 import { PrismaClient } from '@prisma/client';
 import { cookies } from 'next/headers';
-import { decodeToken, generateAccessToken } from '@/lib/jwt';
+import { decodeToken, generateAccessToken } from '@/services/api/jwt';
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
@@ -23,7 +23,7 @@ export default async function validate(email: string, password: string): Promise
             throw new Error('La contraseña proporcionada es incorrecta');
         }
 
-        const token = await generateAccessToken({ id: user.id, firstname: user.firstname, lastname: user.lastname, email: user.email, role: user.role });
+        const token = await generateAccessToken({ id: user.id });
 
         cookies().set('access-token', token, {
             httpOnly: true,
@@ -39,7 +39,6 @@ export default async function validate(email: string, password: string): Promise
     }
 }
 
-// Función donde se obtiene la información del usuario a partir del token de acceso
 export async function getUserSession() {
     try {
         const cookieStore = cookies();
@@ -48,16 +47,22 @@ export async function getUserSession() {
         if (!accessToken) return false;
 
         const decoded = await decodeToken(accessToken.value);
-        if (!decoded || !decoded.userId) return false;
+        if (!decoded || typeof decoded.userId !== 'number') return false;
 
-        return { firstname: decoded.firstname, lastname: decoded.lastname, email: decoded.email, role: decoded.role };
+        const user = await prisma.mdl_user.findUnique({
+            where: { id: decoded.userId },
+            select: { firstname: true, lastname: true, email: true, role: true },
+        });
+
+        if (!user) return false;
+
+        return { firstname: user.firstname, lastname: user.lastname, email: user.email, role: user.role };
     } catch (error) {
         console.error('Error en getUserSession:', error);
         return false;
     }
 }
 
-// Función donde se obtiene el ID del usuario a partir del token de acceso
 export async function getUserId() {
     try {
         const cookieStore = cookies();
@@ -83,7 +88,7 @@ export async function getCourses() {
                 fullname: true
             }
         });
-        
+
         return courses;
     } catch (error) {
         console.error('Error al obtener los cursos:', error);
