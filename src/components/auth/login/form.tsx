@@ -55,16 +55,16 @@ export default function Login() {
                                 <a href="#" className="font-medium text-teal-600 hover:text-teal-500 transition-all ease-in-out duration-300">¿Olvidaste tu contraseña?</a>
                             </div>
                         </div>
-                        <button type="submit" className="w-full py-2 flex justify-center text-sm sm:text-md bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg transition-all ease-in-out duration-300">
-                            ENTRAR
+                        <button type="submit" className="w-full py-2 flex justify-center text-sm sm:text-md bg-teal-600 hover:bg-teal-500 text-white font-semibold rounded-lg transition-all ease-in-out duration-300">
+                            ACCEDER
                         </button>
                         {error && <p className="text-red-500 text-center mt-4">{error}</p>}
                     </form>
                 </section>
             </main>
-            <footer className="absolute bottom-0 right-0 flex gap-5 p-8">
-                <Image src={additionalImg1} alt="Logo Monlau FP" className="w-28 sm:w-36" />
-                <Image src={additionalImg2} alt="Logo Monlau ESO" className="w-28 sm:w-36" />
+            <footer className="absolute bottom-0 right-0 flex gap-5 p-5">
+                <Image src={additionalImg1} alt="Logo Monlau FP" className="w-28 sm:w-28" />
+                <Image src={additionalImg2} alt="Logo Monlau ESO" className="w-28 sm:w-28" />
             </footer>
         </div>
     );
