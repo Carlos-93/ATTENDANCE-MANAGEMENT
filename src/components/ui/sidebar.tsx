@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { subMenu } from "@/types";
+import { subMenu } from "@/_types";
 import { destroySession } from "@/lib/data";
 import Link from "next/link";
 import Image from "next/image";
