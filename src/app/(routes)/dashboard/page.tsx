@@ -4,7 +4,7 @@ import Dashboard from "@/components/layouts/dashboard";
 
 export function generateMetadata(): Metadata {
     return {
-        title: `${APP_NAME} - Panel de Control`,
+        title: `${APP_NAME} - Inicio`,
     };
 };
 

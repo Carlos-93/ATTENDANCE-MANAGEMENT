@@ -21,3 +21,12 @@
 .shadow {
     box-shadow: 0 0 20px 0 rgb(20 184 166);
 }
+
+.hover-shadow {
+    transition: all 0.3s ease-in-out;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 0 20px 0 rgb(20 184 166);
+    color: rgb(0, 255, 255);
+}

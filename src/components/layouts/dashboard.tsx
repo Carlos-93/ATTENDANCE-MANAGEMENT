@@ -1,28 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import Courses from "../ui/courses";
 
 export default function Dashboard() {
-    const [courses, setCourses] = useState<{ fullname: string }[]>([]);
-
-    useEffect(() => {
-        async function fetchCourses() {
-            const response = await fetch('/api/courses');
-            const data = await response.json();
-            setCourses(data);
-        };
-
-        fetchCourses();
-    }, []);
-
     return (
-        <main className="flex flex-col p-10 flex-grow h-screen justify-center items-center">
-            <h1 className='text-4xl text-white'>Courses</h1>
-            <ul className='text-white'>
-                {courses.map((course, index) => (
-                    <li key={index}>{course.fullname}</li>
-                ))}
-            </ul>
+        <main className="flex flex-col p-6 md:p-12 lg:p-24 h-screen justify-start items-start ml-72 gap-10">
+            <h1 className='text-2xl md:text-3xl lg:text-4xl text-white mb-10'>Cursos 2ºDAW</h1>
+            <Courses />
         </main>
     );
-};
+}

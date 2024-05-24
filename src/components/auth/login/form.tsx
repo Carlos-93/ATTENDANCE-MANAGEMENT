@@ -5,6 +5,8 @@ import validate from '@/lib/data';
 import Image from 'next/image';
 import loginImg from '../../../../public/assets/images/login.jpeg';
 import logoImg from '../../../../public/assets/images/logo.png';
+import additionalImg1 from '../../../../public/assets/images/monlau-fp.png';
+import additionalImg2 from '../../../../public/assets/images/monlau-eso.png';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -23,7 +25,7 @@ export default function Login() {
     };
 
     return (
-        <div className='grid grid-cols-1 lg:grid-cols-2 h-screen w-full'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 h-screen w-full relative'>
             <aside className="hidden lg:block relative w-full h-full">
                 <Image src={loginImg} alt="Login" fill sizes="(max-width: 1024px) 100vw, 50vw" priority className='object-cover' />
             </aside>
@@ -60,6 +62,10 @@ export default function Login() {
                     </form>
                 </section>
             </main>
+            <footer className="absolute bottom-0 right-0 flex gap-5 p-8">
+                <Image src={additionalImg1} alt="Logo Monlau FP" className="w-28 sm:w-36" />
+                <Image src={additionalImg2} alt="Logo Monlau ESO" className="w-28 sm:w-36" />
+            </footer>
         </div>
     );
 }

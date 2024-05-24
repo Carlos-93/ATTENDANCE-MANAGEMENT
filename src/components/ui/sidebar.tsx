@@ -7,7 +7,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Sidebar() {
-
     // Estado para controlar la apertura de los submenús
     const [isOpen, setIsOpen] = useState<subMenu>({
         eso: false,
