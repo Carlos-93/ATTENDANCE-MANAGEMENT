@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { subMenu } from "@/interfaces";
+import { subMenu } from "@/types";
 import { destroySession } from "@/lib/data";
 import Link from "next/link";
 import Image from "next/image";
@@ -28,7 +28,9 @@ export default function Sidebar() {
     return (
         <nav className="hidden md:flex flex-col justify-between fixed inset-y-0 left-0 w-72 bg-gray-800 text-white p-4 pb-10 overflow-y-auto gap-20 z-10 select-none">
             <section>
-                <Image src="/assets/images/logo.png" alt="Logo Nexus Estudiantil" width={260} height={250} priority />
+                <Link href="/dashboard">
+                    <Image src="/assets/images/logo.png" alt="Logo Nexus Estudiantil" width={260} height={250} className="shadow-logo transition-all ease-in-out duration-300" priority />
+                </Link>
                 <ul className="flex flex-col gap-3">
 
                     <input type="search" placeholder="Buscar curso..." className="pl-4 p-2 w-full bg-gray-700 text-white rounded my-4 focus:outline-none focus:ring-1 focus:ring-teal-500" id="search-course" name="search-course" />

@@ -24,6 +24,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@images/*": [
+        "./public/assets/images/*"
       ]
     }
   },

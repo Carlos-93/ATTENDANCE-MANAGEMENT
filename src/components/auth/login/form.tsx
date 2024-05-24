@@ -3,10 +3,8 @@
 import { useState } from 'react';
 import validate from '@/lib/data';
 import Image from 'next/image';
-import loginImg from '../../../../public/assets/images/login.jpeg';
-import logoImg from '../../../../public/assets/images/logo.png';
-import additionalImg1 from '../../../../public/assets/images/monlau-fp.png';
-import additionalImg2 from '../../../../public/assets/images/monlau-eso.png';
+import loginImg from '@images/login.jpeg';
+import logoImg from '@images/logo.png';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -17,7 +15,7 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const user = await validate(email, password);
+            await validate(email, password);
             window.location.href = '/dashboard';
         } catch (error) {
             setError((error as Error).message);
@@ -31,7 +29,7 @@ export default function Login() {
             </aside>
             <main className='flex flex-col justify-center gap-10 bg-gray-800 px-5 md:px-0 -mt-20'>
                 <div className='flex justify-center'>
-                    <Image src={logoImg} alt="Logo NexusEstudiantil" className='w-[14rem] sm:w-[18rem]' />
+                    <Image src={logoImg} alt="Logo NexusEstudiantil" className='w-[14rem] sm:w-[18rem] shadow-logo' />
                 </div>
                 <section className="flex flex-col gap-8 max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-5 sm:p-10 shadow">
                     <h2 className='text-2xl sm:text-3xl text-white font-bold text-center'>Iniciar Sesión</h2>
@@ -62,10 +60,6 @@ export default function Login() {
                     </form>
                 </section>
             </main>
-            <footer className="absolute bottom-0 right-0 flex gap-5 p-5">
-                <Image src={additionalImg1} alt="Logo Monlau FP" className="w-28 sm:w-28" />
-                <Image src={additionalImg2} alt="Logo Monlau ESO" className="w-28 sm:w-28" />
-            </footer>
         </div>
     );
 }
