@@ -3,7 +3,7 @@
 import prisma from './prisma';
 import bcrypt from "bcrypt";
 import { cookies } from 'next/headers';
-import { decodeToken, generateAccessToken } from '@/services/api/jwt';
+import { decodeToken, generateAccessToken } from '@/services/jwt';
 
 // Función donde se verifica si las credenciales del usuario son correctas
 export default async function validate(email: string, password: string): Promise<any> {
