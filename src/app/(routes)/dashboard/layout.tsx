@@ -1,8 +1,8 @@
 
 import { getUserSession } from "@/lib/data";
 import { redirect } from "next/navigation";
-import Header from "@/components/layouts/header";
-import Sidebar from "@/components/layouts/sidebar";
+import Header from "@/components/ui/header";
+import Sidebar from "@/components/ui/sidebar";
 
 export default async function Layout({
     children,

@@ -8,7 +8,7 @@ export default function Header() {
 
     useEffect(() => {
         async function fetchUser() {
-            const response = await fetch('/api/user');
+            const response = await fetch('/api/user/userSession');
             const data = await response.json();
             setUser(data);
         }
@@ -16,7 +16,7 @@ export default function Header() {
     }, []);
 
     return (
-        <header className="sticky top-0 w-full flex justify-between md:justify-end items-center py-2 md:py-5 px-5 backdrop-blur-lg bg-black/100">
+        <header className="sticky top-0 w-full flex justify-between md:justify-end items-center py-2 md:py-5 px-5 backdrop-blur-lg bg-black/100 z-10">
             <div className="md:hidden">
                 <Image src="/assets/images/logo.png" alt="Logo Nexus Estudiantil" width={170} height={170} />
             </div>

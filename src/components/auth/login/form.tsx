@@ -77,8 +77,8 @@ export default function Login() {
                 </section>
                 {userSession && (
                     <Link href="/dashboard"
-                        className="flex justify-center items-center gap-3 text-center font-semibold text-white mt-4">
-                        <p className='hover:text-teal-500 transition-all ease-in-out duration-300'>Continuar con {userSession.email}</p>
+                        className="flex justify-center items-center gap-3 font-semibold text-teal-500 mt-4 hover:underline mx-auto">
+                        <p>Continuar con {userSession.email}</p>
                         <Image src={IconLogin} alt="Continue session" />
                     </Link>
                 )}

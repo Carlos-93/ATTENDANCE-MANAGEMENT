@@ -7282,11 +7282,11 @@ model mdl_user {
   mnethostid        BigInt?  @default(0)
   role              String?  @default("student") @db.VarChar(30)
   username          String?  @default("") @db.VarChar(100)
-  password          String   @db.Text
+  password          String   @db.VarChar(255)
   idnumber          String?  @default("") @db.VarChar(255)
   firstname         String?  @default("") @db.VarChar(100)
   lastname          String?  @default("") @db.VarChar(100)
-  email             String   @unique(map: "email") @db.VarChar(255)
+  email             String?  @unique(map: "email") @db.VarChar(255)
   emailstop         Boolean? @default(false)
   phone1            String?  @default("") @db.VarChar(20)
   phone2            String?  @default("") @db.VarChar(20)
@@ -7804,4 +7804,13 @@ model mdl_xapi_states {
   @@index([component, itemid], map: "mdl_xapistat_comite_ix")
   @@index([timemodified], map: "mdl_xapistat_tim_ix")
   @@index([userid], map: "mdl_xapistat_use_ix")
+}
+
+model mdl_user_logs {
+  id     Int       @id @default(autoincrement())
+  uid    String    @db.VarChar(255)
+  input  DateTime? @db.Timestamp(0)
+  output DateTime? @db.Timestamp(0)
+
+  @@index([uid], map: "mdl_userlog_uid_ix")
 }

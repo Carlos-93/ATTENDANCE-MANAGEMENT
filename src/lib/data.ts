@@ -78,6 +78,25 @@ export async function getCourses() {
     }
 }
 
+// Función donde se obtienen los fichajes de los usuarios
+export async function getUsersLogs() {
+    try {
+        const usersLogs = await prisma.mdl_user_logs.findMany({
+            select: {
+                id: true,
+                uid: true,
+                input: true,
+                output: true
+            }
+        });
+
+        return usersLogs;
+    } catch (error) {
+        console.error('Error al obtener los fichajes de los usuarios:', error);
+        return [];
+    }
+}
+
 // Función donde se elimina la sesión del usuario
 export async function destroySession() {
     cookies().delete('access-token');

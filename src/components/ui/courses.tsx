@@ -51,7 +51,7 @@ export default function Courses() {
                         <path d="M9.25 12C9.25 10.48 10.48 9.25 12 9.25C13.52 9.25 14.75 10.48 14.75 12C14.75 13.52 13.52 14.75 12 14.75C10.48 14.75 9.25 13.52 9.25 12Z"
                             fill="white" />
                     </svg>
-                    <h2 className="text-md xl:text-lg font-semibold select-none">{course.fullname}</h2>
+                    <h2 className="font-semibold select-none">{course.fullname}</h2>
                     {menuVisible === index && (
                         <div ref={menuRef} className="absolute top-7 right-2 bg-gray-700 text-white shadow-lg z-10 rounded-lg">
                             <button className="flex py-3 pl-3 pr-14 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-lg">Editar curso</button>
