@@ -12,9 +12,7 @@ export default async function Layout({
 
     const user = await getUserSession();
 
-    if (!user) {
-        return redirect('/');
-    }
+    if (!user) { return redirect('/'); }
 
     return (
         <div>

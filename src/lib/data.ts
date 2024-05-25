@@ -5,8 +5,8 @@ import bcrypt from "bcrypt";
 import { cookies } from 'next/headers';
 import { decodeToken, generateAccessToken } from '@/services/jwt';
 
-// Función donde se verifica si las credenciales del usuario son correctas
 export default async function validate(email: string, password: string): Promise<any> {
+    // Función donde se verifica si las credenciales del usuario son correctas
     try {
         const user = await prisma.mdl_user.findUnique({
             where: { email }
@@ -37,8 +37,8 @@ export default async function validate(email: string, password: string): Promise
     }
 }
 
-// Función donde se obtiene la información del usuario de la sesión
 export async function getUserSession() {
+    // Función donde se obtiene la información del usuario de la sesión
     try {
         const cookieStore = cookies();
 
@@ -62,24 +62,8 @@ export async function getUserSession() {
     }
 }
 
-// Función donde se obtienen todos los cursos de Moodle
-export async function getCourses() {
-    try {
-        const courses = await prisma.mdl_course.findMany({
-            select: {
-                fullname: true
-            }
-        });
-
-        return courses;
-    } catch (error) {
-        console.error('Error al obtener los cursos:', error);
-        return [];
-    }
-}
-
-// Función donde se obtienen los fichajes de los usuarios
 export async function getUsersLogs() {
+    // Función donde se obtienen los fichajes de los usuarios
     try {
         const usersLogs = await prisma.mdl_user_logs.findMany({
             select: {
@@ -97,7 +81,23 @@ export async function getUsersLogs() {
     }
 }
 
-// Función donde se elimina la sesión del usuario
 export async function destroySession() {
+    // Función donde se elimina la sesión del usuario
     cookies().delete('access-token');
+}
+
+export async function getCourses() {
+    // Función asincrónica donde se obtienen todos los cursos de Moodle
+    try {
+        const courses = await prisma.mdl_course.findMany({
+            select: {
+                fullname: true
+            }
+        });
+
+        return courses;
+    } catch (error) {
+        console.error('Error al obtener los cursos:', error);
+        return [];
+    }
 }

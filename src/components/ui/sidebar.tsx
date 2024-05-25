@@ -19,9 +19,9 @@ export default function Sidebar() {
         daw: false,
         ceti: false,
     })
-
-    // Función para manejar el estado de los submenús
+    
     function handleToggle(menu: keyof subMenu) {
+        // Función donde manejamos la apertura y cierre de los submenús
         setIsOpen({ ...isOpen, [menu]: !isOpen[menu] });
     };
 
