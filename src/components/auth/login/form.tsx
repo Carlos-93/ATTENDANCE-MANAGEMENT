@@ -1,15 +1,31 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getUserSession } from '@/lib/data';
+import { User } from '@/types/user/_types';
+
+import Link from 'next/link';
 import validate from '@/lib/data';
 import Image from 'next/image';
 import loginImg from '@images/login.jpeg';
 import logoImg from '@images/logo.png';
+import IconLogin from '@icons/login.svg';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string>('');
+    const [userSession, setUserSession] = useState<User | null>(null);
+
+    useEffect(() => {
+        async function checkUserSession() {
+            const session = await getUserSession();
+            if (session) {
+                setUserSession(session);
+            }
+        }
+        checkUserSession();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -59,6 +75,13 @@ export default function Login() {
                         {error && <p className="text-red-500 text-center mt-4">{error}</p>}
                     </form>
                 </section>
+                {userSession && (
+                    <Link href="/dashboard"
+                        className="flex justify-center items-center gap-3 text-center font-semibold text-white mt-4">
+                        <p className='hover:text-teal-500 transition-all ease-in-out duration-300'>Continuar con {userSession.email}</p>
+                        <Image src={IconLogin} alt="Continue session" />
+                    </Link>
+                )}
             </main>
         </div>
     );

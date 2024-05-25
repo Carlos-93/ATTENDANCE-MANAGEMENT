@@ -1,11 +1,9 @@
 'use server';
 
-import { PrismaClient } from '@prisma/client';
+import prisma from './prisma';
+import bcrypt from "bcrypt";
 import { cookies } from 'next/headers';
 import { decodeToken, generateAccessToken } from '@/services/api/jwt';
-import bcrypt from "bcrypt";
-
-const prisma = new PrismaClient();
 
 // Función donde se verifica si las credenciales del usuario son correctas
 export default async function validate(email: string, password: string): Promise<any> {
@@ -15,7 +13,7 @@ export default async function validate(email: string, password: string): Promise
         });
 
         if (!user) {
-            throw new Error('El correo electrónico proporcionado no está registrado');
+            throw new Error('El usuario proporcionado no existe');
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -39,48 +37,32 @@ export default async function validate(email: string, password: string): Promise
     }
 }
 
+// Función donde se obtiene la información del usuario de la sesión
 export async function getUserSession() {
     try {
         const cookieStore = cookies();
 
         const accessToken = cookieStore.get('access-token');
-        if (!accessToken) return false;
+        if (!accessToken) return null;
 
         const decoded = await decodeToken(accessToken.value);
-        if (!decoded || typeof decoded.userId !== 'number') return false;
+        if (!decoded || typeof decoded.userId !== 'number') return null;
 
         const user = await prisma.mdl_user.findUnique({
             where: { id: decoded.userId },
             select: { firstname: true, lastname: true, email: true, role: true },
         });
 
-        if (!user) return false;
+        if (!user) return null;
 
-        return { firstname: user.firstname, lastname: user.lastname, email: user.email, role: user.role };
+        return { id: decoded.userId, firstname: user.firstname, lastname: user.lastname, email: user.email, role: user.role };
     } catch (error) {
         console.error('Error en getUserSession:', error);
-        return false;
+        return null;
     }
 }
 
-export async function getUserId() {
-    try {
-        const cookieStore = cookies();
-
-        const accessToken = cookieStore.get('access-token');
-        if (!accessToken) return false;
-
-        const decoded = await decodeToken(accessToken.value);
-        if (!decoded || !decoded.userId) return false;
-
-        return decoded.userId;
-    } catch (error) {
-        console.error('Error en getUserId:', error);
-        return false;
-    }
-}
-
-// Función donde se obtienen todos los fullname de los cursos
+// Función donde se obtienen todos los cursos de Moodle
 export async function getCourses() {
     try {
         const courses = await prisma.mdl_course.findMany({
@@ -92,11 +74,11 @@ export async function getCourses() {
         return courses;
     } catch (error) {
         console.error('Error al obtener los cursos:', error);
-        return false;
+        return [];
     }
 }
 
-// Función donde se cierra la sesión del usuario
+// Función donde se elimina la sesión del usuario
 export async function destroySession() {
     cookies().delete('access-token');
 }
