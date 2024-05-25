@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { UserLogs } from '@/types/user/_types';
 
 export default function Logs() {
-    const [logs, setLogs] = useState<{ id: string, uid: string, input: string, output: string }[]>([]);
+    const [logs, setLogs] = useState<UserLogs[]>([]);
 
     useEffect(() => {
         // Función asíncrona para obtener los fichajes de los usuarios de Moodle a través de la API

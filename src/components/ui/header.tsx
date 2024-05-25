@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { User } from '@/types/user/_types';
 import Image from 'next/image';
 
 export default function Header() {
-    const [user, setUser] = useState<{ firstname: string, lastname: string, email: string, role: string } | null>(null);
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
         async function fetchUser() {

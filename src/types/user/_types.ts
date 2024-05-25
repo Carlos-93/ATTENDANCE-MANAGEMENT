@@ -6,3 +6,10 @@ export interface User {
     lastname: string;
     email: string;
 }
+
+export interface UserLogs {
+    id: string;
+    uid: string;
+    input: string;
+    output: string;
+}
