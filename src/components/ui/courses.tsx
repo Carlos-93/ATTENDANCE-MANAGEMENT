@@ -1,37 +1,17 @@
 'use client';
 
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { Course } from '@/types/courses/_types';
+import { useRef, useEffect, useState, useCallback } from 'react';
+import { useFetchCourses } from '@/hooks/useFetchCourses';
+import { useIsAdmin } from '@/hooks/useIsAdmin';
 
 export default function Courses() {
-    const [courses, setCourses] = useState<Course[]>([]);
     const [menuVisible, setMenuVisible] = useState<number | null>(null);
-    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
     const menuRef = useRef<HTMLDivElement | null>(null);
+    const courses = useFetchCourses();
+    const isAdmin = useIsAdmin();
 
     useEffect(() => {
-        // Función asíncrona donde se obtienen los datos del usuario logueado
-        async function fetchUser() {
-            const response = await fetch('/api/user/userSession');
-            const data = await response.json();
-            setIsAdmin(data.role === 'admin');
-        }
-        fetchUser();
-    }, []);
-
-    useEffect(() => {
-        // Función asíncrona donde se obtienen los cursos almacenados en Moodle
-        async function fetchCourses() {
-            const response = await fetch('/api/courses');
-            const data = await response.json();
-            setCourses(data);
-        }
-        fetchCourses();
-    }, []);
-
-    useEffect(() => {
-        // Función donde se maneja el evento de click fuera del menú de opciones
         function handleClickOutside(event: MouseEvent) {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setMenuVisible(null);
@@ -44,7 +24,6 @@ export default function Courses() {
     }, []);
 
     const handleMenuToggle = useCallback((index: number) => {
-        // Función Callback donde se maneja el estado de visibilidad del menú de opciones
         setMenuVisible(menuVisible === index ? null : index);
     }, [menuVisible]);
 

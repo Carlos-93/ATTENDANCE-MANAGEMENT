@@ -1,21 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { User } from '@/types/user/_types';
+import { useFetchUser } from '@/hooks/useFetchUser';
 import Image from 'next/image';
 
 export default function Header() {
-    const [user, setUser] = useState<User | null>(null);
 
-    useEffect(() => {
-        // Función asíncrona donde se obtiene la información del usuario logueado
-        async function fetchUser() {
-            const response = await fetch('/api/user/userSession');
-            const data = await response.json();
-            setUser(data);
-        }
-        fetchUser();
-    }, []);
+    // Hook personalizado donde se obtiene la información del usuario logueado
+    const user = useFetchUser();
 
     return (
         <header className="sticky top-0 w-full flex justify-between md:justify-end items-center py-2 md:py-5 px-5 backdrop-blur-md bg-black/50 z-10">
@@ -27,7 +18,7 @@ export default function Header() {
                     <article className='flex justify-center items-center gap-5'>
                         <Image src={user.imagesrc ? user.imagesrc : '/storage/user/default.png'}
                             alt={`Imagen ${user.firstname} ${user.lastname}`}
-                            width={60} height={0} className="rounded-full" priority />
+                            width={60} height={60} className="rounded-full" priority />
                         <div className='flex flex-col'>
                             <div className='flex gap-1'>
                                 <span className="font-semibold">{user.firstname}</span>
