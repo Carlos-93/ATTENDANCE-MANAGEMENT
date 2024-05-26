@@ -1614,9 +1614,12 @@ model mdl_course {
   id                       Int      @id @default(autoincrement())
   category                 Int      @default(0)
   sortorder                Int      @default(0)
-  fullname                 String   @default("") @db.VarChar(254)
+  fullname                 String   @default("") @db.VarChar(255)
   shortname                String   @default("") @db.VarChar(255)
+  longname                 String   @default("") @db.VarChar(255)
   idnumber                 String   @default("") @db.VarChar(100)
+  imagesrc                 String?  @db.VarChar(255)
+  imagealt                 String?  @db.VarChar(255)
   summary                  String?  @db.LongText
   summaryformat            Int      @default(0) @db.TinyInt
   format                   String   @default("topics") @db.VarChar(21)

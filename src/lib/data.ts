@@ -49,13 +49,26 @@ export async function getUserSession() {
         if (!decoded || typeof decoded.userId !== 'number') return null;
 
         const user = await prisma.mdl_user.findUnique({
-            where: { id: decoded.userId },
-            select: { firstname: true, lastname: true, email: true, role: true },
+            where: {
+                id: decoded.userId
+            },
+            select: {
+                firstname: true,
+                lastname: true,
+                email: true,
+                role: true
+            },
         });
 
         if (!user) return null;
 
-        return { id: decoded.userId, firstname: user.firstname, lastname: user.lastname, email: user.email, role: user.role };
+        return {
+            id: decoded.userId,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email || '',
+            role: user.role
+        };
     } catch (error) {
         console.error('Error en getUserSession:', error);
         return null;
@@ -63,7 +76,7 @@ export async function getUserSession() {
 }
 
 export async function getUsersLogs() {
-    // Función donde se obtienen los fichajes de los usuarios
+    // Función asincrona donde se obtienen los fichajes de los usuarios de Moodle
     try {
         const usersLogs = await prisma.mdl_user_logs.findMany({
             select: {
@@ -74,7 +87,8 @@ export async function getUsersLogs() {
                 mdl_user: {
                     select: {
                         firstname: true,
-                        lastname: true
+                        lastname: true,
+                        imagesrc: true
                     }
                 }
             }
@@ -97,7 +111,9 @@ export async function getCourses() {
     try {
         const courses = await prisma.mdl_course.findMany({
             select: {
-                fullname: true
+                shortname: true,
+                longname: true,
+                imagesrc: true
             }
         });
 

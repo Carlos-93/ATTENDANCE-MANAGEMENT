@@ -8,7 +8,7 @@ export default function Header() {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        // Función asíncrona para obtener los datos del usuario autenticado
+        // Función asíncrona donde se obtiene la información del usuario logueado
         async function fetchUser() {
             const response = await fetch('/api/user/userSession');
             const data = await response.json();

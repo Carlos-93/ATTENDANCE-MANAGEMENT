@@ -4,4 +4,6 @@ export interface Course {
     sortorder: number;
     fullname: string;
     shortname: string;
+    longname: string;
+    imagesrc: string;
 }

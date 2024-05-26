@@ -1,7 +1,7 @@
 export interface User {
     id: number;
     role: string;
-    username: string;
+    username?: string;
     firstname: string;
     lastname: string;
     email: string;
@@ -15,5 +15,6 @@ export interface UserLogs {
     mdl_user: {
         firstname: string;
         lastname: string;
+        imagesrc?: string;
     };
 }

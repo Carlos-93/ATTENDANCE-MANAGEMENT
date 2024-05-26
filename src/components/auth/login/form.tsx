@@ -18,6 +18,7 @@ export default function Login() {
     const [userSession, setUserSession] = useState<User | null>(null);
 
     useEffect(() => {
+        // Función asíncrona donde se verifica si existe una sesión activa
         async function checkUserSession() {
             const session = await getUserSession();
             if (session) {
@@ -27,9 +28,9 @@ export default function Login() {
         checkUserSession();
     }, []);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        // Función asíncrona donde se verifica si las credenciales del usuario son correctas
         e.preventDefault();
-
         try {
             await validate(email, password);
             window.location.href = '/dashboard';
@@ -72,7 +73,7 @@ export default function Login() {
                         <button type="submit" className="w-full py-2 flex justify-center text-sm sm:text-md bg-teal-600 hover:bg-teal-500 text-white font-semibold rounded-lg transition-all ease-in-out duration-300">
                             ACCEDER
                         </button>
-                        {error && <p className="text-red-500 text-center mt-4">{error}</p>}
+                        {error && <p className="text-red-500 text-center">{error}</p>}
                     </form>
                 </section>
                 {userSession && (
