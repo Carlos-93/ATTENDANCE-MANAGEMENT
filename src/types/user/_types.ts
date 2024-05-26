@@ -5,6 +5,7 @@ export interface User {
     firstname: string;
     lastname: string;
     email: string;
+    imagesrc?: string;
 }
 
 export interface UserLogs {
@@ -13,6 +14,7 @@ export interface UserLogs {
     input: Date | null;
     output: Date | null;
     mdl_user: {
+        id: number;
         firstname: string;
         lastname: string;
         imagesrc?: string;

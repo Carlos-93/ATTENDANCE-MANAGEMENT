@@ -56,7 +56,8 @@ export async function getUserSession() {
                 firstname: true,
                 lastname: true,
                 email: true,
-                role: true
+                role: true,
+                imagesrc: true
             },
         });
 
@@ -67,7 +68,8 @@ export async function getUserSession() {
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email || '',
-            role: user.role
+            role: user.role,
+            imagesrc: user.imagesrc
         };
     } catch (error) {
         console.error('Error en getUserSession:', error);
@@ -86,6 +88,7 @@ export async function getUsersLogs() {
                 output: true,
                 mdl_user: {
                     select: {
+                        id: true,
                         firstname: true,
                         lastname: true,
                         imagesrc: true
