@@ -8,7 +8,7 @@ export interface User {
 }
 
 export interface UserLogs {
-    id: string;
+    id: number;
     uid: string;
     input: string;
     output: string;
