@@ -10,6 +10,10 @@ export interface User {
 export interface UserLogs {
     id: number;
     uid: string;
-    input: string;
-    output: string;
+    input: Date | null;
+    output: Date | null;
+    mdl_user: {
+        firstname: string;
+        lastname: string;
+    };
 }

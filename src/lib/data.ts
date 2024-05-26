@@ -70,7 +70,13 @@ export async function getUsersLogs() {
                 id: true,
                 uid: true,
                 input: true,
-                output: true
+                output: true,
+                mdl_user: {
+                    select: {
+                        firstname: true,
+                        lastname: true
+                    }
+                }
             }
         });
 

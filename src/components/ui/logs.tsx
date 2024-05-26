@@ -10,7 +10,7 @@ export default function Logs() {
         // Función asíncrona para obtener los fichajes de los usuarios de Moodle a través de la API
         async function fetchLogs() {
             const response = await fetch('/api/user/userLogs');
-            const data = await response.json(); 
+            const data = await response.json();
             setLogs(data);
         }
         fetchLogs();
@@ -22,7 +22,7 @@ export default function Logs() {
                 <ul className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full">
                     {logs.map((log) => (
                         <li key={log.id} className="bg-gray-800 text-white p-4 rounded-lg">
-                            <p className="font-semibold">{log.uid}</p>
+                            <p className="font-semibold">{log.mdl_user.firstname} {log.mdl_user.lastname}</p>
                             <p className="text-gray-300">Entrada: {log.input ? new Date(log.input).toLocaleString() : 'N/A'}</p>
                             <p className="text-gray-300">Salida: {log.output ? new Date(log.output).toLocaleString() : 'N/A'}</p>
                         </li>
