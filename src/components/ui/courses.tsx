@@ -51,8 +51,8 @@ export default function Courses() {
                             <p className="font-semibold">{course.longname}</p>
                             {menuVisible === index && (
                                 <div ref={menuRef} className="absolute top-7 right-2 bg-gray-700 text-white shadow-lg z-10 rounded-lg">
-                                    <button className="flex py-3 pl-3 pr-14 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-lg">Editar curso</button>
-                                    <button className="flex py-3 pl-3 pr-14 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-lg">Eliminar curso</button>
+                                    <button className="flex py-3 pl-3 pr-14 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-t-lg">Editar curso</button>
+                                    <button className="flex py-3 pl-3 pr-14 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-b-lg">Eliminar curso</button>
                                 </div>
                             )}
                         </div>
