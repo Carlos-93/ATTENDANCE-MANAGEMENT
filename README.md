@@ -1,6 +1,6 @@
 <p align="center"><img src="https://github.com/Carlos-93/attendance-management/blob/master/public/next.svg" alt="Next Logo" title="Next.js Logo" width="35%"></p>
 
-# Welcome to my attendance management system for in the school using RFID technology
+# Attendance management system for in the school using RFID technology
 
 This is a [Next.js 14](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
