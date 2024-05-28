@@ -35,7 +35,7 @@ You can download Node.js from [here](https://nodejs.org/).
 
 4. Set up the environment variables:
 
-Create a `.env` file in the root of your project and add the following content, replacing the placeholders with your actual values:
+- Create a `.env` file in the root of your project and add the following content, replacing the placeholders with your actual values:
     ```bash
     DATABASE_URL=your_database_url
     JWT_SECRET=your_secret_key
@@ -43,7 +43,7 @@ Create a `.env` file in the root of your project and add the following content, 
 
 ### Running the Development Server
 
-First, run the development server:
+- First, run the development server:
     ```bash
     npm run dev
     # or
