@@ -12,17 +12,18 @@ Make sure you have Node.js and npm installed on your machine. You can download N
 
 ### Installation
 
-1. Clone the repository:
-
+1. Clone the repository to your local machine:
     ```bash
-git clone https://github.com/Carlos-93/attendance-management.git
-cd attendance-management
+    git clone https://github.com/Carlos-93/attendance-management.git
     ```
-2. Install the dependencies:
-
+2. Change into the project directory:
+    ```bash
+    cd attendance-management
+    ```
+2. Install Node dependencies:
     ```bash
 npm install
-# or
+#### or
 yarn install
 # or
 pnpm install
