@@ -41,6 +41,11 @@ You can download Node.js from [here](https://nodejs.org/).
     JWT_SECRET="your_secret_key"
     ```
 
+- To generate a `JWT_SECRET`, you can use the following command in your terminal:
+    ```bash
+    openssl rand -base64 32
+    ```
+
 ### Running the Development Server
 
 - First, run the development server:
