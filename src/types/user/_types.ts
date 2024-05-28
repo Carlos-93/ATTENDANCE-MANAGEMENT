@@ -11,8 +11,8 @@ export interface User {
 export interface UserLogs {
     id: number;
     uid: string;
-    input: Date | null;
-    output: Date | null;
+    input: string;
+    output: string;
     mdl_user: {
         id: number;
         role: string;

@@ -2,15 +2,22 @@
 
 import { useFetchLogs } from '@/hooks/useFetchLogs';
 import { useFetchUser } from '@/hooks/useFetchUser';
-import Image from 'next/image';
 import { useMemo } from 'react';
+import Image from 'next/image';
 
 export default function Logs() {
     const logs = useFetchLogs();
     const user = useFetchUser();
-    
+
     const today = new Date();
     const currentDate = today.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+    const isLate = (dateString: string) => {
+        // Función donde comprobamos si la hora de entrada es posterior a las 8:00
+        if (!dateString) return false;
+        const date = new Date(dateString);
+        return date.getHours() > 8 || (date.getHours() === 8 && date.getMinutes() > 0);
+    };
 
     const filteredLogs = useMemo(() => {
         // Función donde filtramos los fichajes según el rol del usuario logueado
@@ -41,8 +48,12 @@ export default function Logs() {
                                         width={100} height={100} className="rounded-full" priority />
                                     <div className='flex flex-col text-end gap-1'>
                                         <p className="font-semibold text-lg text-teal-400">{log.mdl_user.firstname} {log.mdl_user.lastname}</p>
-                                        <p className="text-gray-300">Entrada: {log.input ? new Date(log.input).toLocaleString() : 'N/A'}</p>
-                                        <p className="text-gray-300">Salida: {log.output ? new Date(log.output).toLocaleString() : 'N/A'}</p>
+                                        <p className="text-gray-300">Entrada: <span className={isLate(log.input) ? "text-red-500" : "text-gray-300"}>
+                                            {log.input ? new Date(log.input).toLocaleString() : 'N/A'}</span>
+                                        </p>
+                                        <p className="text-gray-300">
+                                            Salida: {log.output ? new Date(log.output).toLocaleString() : 'N/A'}
+                                        </p>
                                     </div>
                                 </div>
                             </li>
