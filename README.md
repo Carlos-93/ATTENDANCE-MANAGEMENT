@@ -1,6 +1,6 @@
 <p align="center"><img src="https://github.com/Carlos-93/attendance-management/blob/master/public/next.svg" alt="Next Logo" title="Next.js Logo" width="35%"></p>
 
-## Welcome to my attendance management system for in the school using RFID technology
+# Welcome to my attendance management system for in the school using RFID technology
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -20,18 +20,18 @@ Make sure you have Node.js and npm installed on your machine. You can download N
     ```bash
     cd attendance-management
     ```
-2. Install Node dependencies:
+3. Install Node dependencies:
     ```bash
 npm install
 #### or
 yarn install
-# or
+#### or
 pnpm install
-# or
+#### or
 bun install
     ```
 
-3. Set up the environment variables:
+4. Set up the environment variables:
 
 Create a .env file in the root of your project and add the following content, replacing the placeholders with your actual values:
 
