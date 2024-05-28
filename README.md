@@ -37,8 +37,8 @@ You can download Node.js from [here](https://nodejs.org/).
 
 - Create a `.env` file in the root of your project and add the following content, replacing the placeholders with your actual values:
     ```bash
-    DATABASE_URL=your_database_url
-    JWT_SECRET=your_secret_key
+    DATABASE_URL="your_database_url"
+    JWT_SECRET="your_secret_key"
     ```
 
 ### Running the Development Server
