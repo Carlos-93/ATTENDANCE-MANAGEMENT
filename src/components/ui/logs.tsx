@@ -13,10 +13,21 @@ export default function Logs() {
     const currentDate = today.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
     const isLate = (dateString: string) => {
-        // Función donde comprobamos si la hora de entrada es posterior a las 8:00
-        if (!dateString) return false;
         const date = new Date(dateString);
-        return date.getHours() > 8 || (date.getHours() === 8 && date.getMinutes() > 0);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+
+        if (!dateString) return false;
+
+        // Verificamos si la hora de entrada es pasadas las 08:00:00
+        if (hours > 8 || (hours === 8 && minutes > 0)) {
+            return true;
+        }
+        // Verificamos si la hora de entrada es pasadas las 15:10:00
+        if (hours > 15 || (hours === 15 && minutes >= 10)) {
+            return true;
+        }
+        return false;
     };
 
     const filteredLogs = useMemo(() => {
@@ -43,12 +54,12 @@ export default function Logs() {
                             <li key={log.id} className="flex flex-col bg-gray-800 text-white p-4 rounded-lg">
                                 <div className='flex justify-around items-center'>
                                     <Image
-                                        src={log.mdl_user.imagesrc ? log.mdl_user.imagesrc : '/storage/user/default.png'}
+                                        src={log.mdl_user.imagesrc ? log.mdl_user.imagesrc : '/storage/user/default.jpg'}
                                         alt={`Imagen ${log.mdl_user.firstname} ${log.mdl_user.lastname}`}
-                                        width={100} height={100} className="rounded-full" priority />
+                                        width={100} height={100} className="border-2 border-teal-500 rounded-full" priority />
                                     <div className='flex flex-col text-end gap-1'>
-                                        <p className="font-semibold text-lg text-teal-400">{log.mdl_user.firstname} {log.mdl_user.lastname}</p>
-                                        <p className="text-gray-300">Entrada: <span className={isLate(log.input) ? "text-red-500" : "text-gray-300"}>
+                                        <p className="font-semibold text-lg text-white">{log.mdl_user.firstname} {log.mdl_user.lastname}</p>
+                                        <p className="text-gray-300">Entrada: <span className={isLate(log.input) ? "text-red-500" : "text-green-500"}>
                                             {log.input ? new Date(log.input).toLocaleString() : 'N/A'}</span>
                                         </p>
                                         <p className="text-gray-300">

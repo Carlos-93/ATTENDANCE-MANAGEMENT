@@ -15,7 +15,7 @@ export function useFetchLogs() {
         fetchLogs();
 
         // Set up an interval to fetch logs every 
-        const intervalId = setInterval(fetchLogs);
+        const intervalId = setInterval(fetchLogs, 1000);
 
         // Clean up the interval when the component unmounts
         return () => clearInterval(intervalId);
