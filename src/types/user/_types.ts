@@ -15,6 +15,7 @@ export interface UserLogs {
     output: Date | null;
     mdl_user: {
         id: number;
+        role: string;
         firstname: string;
         lastname: string;
         imagesrc?: string;

@@ -89,6 +89,7 @@ export async function getUsersLogs() {
                 mdl_user: {
                     select: {
                         id: true,
+                        role: true,
                         firstname: true,
                         lastname: true,
                         imagesrc: true

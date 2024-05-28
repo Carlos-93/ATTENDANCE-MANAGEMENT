@@ -1,27 +1,28 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { UserLogs } from '@/types/user/_types';
+import { useFetchLogs } from '@/hooks/useFetchLogs';
 import { useFetchUser } from '@/hooks/useFetchUser';
-
 import Image from 'next/image';
+import { useMemo } from 'react';
 
 export default function Logs() {
-    const [logs, setLogs] = useState<UserLogs[]>([]);
+    const logs = useFetchLogs();
     const user = useFetchUser();
-
+    
     const today = new Date();
     const currentDate = today.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    const filteredLogs = user && user.role === 'student' ? logs.filter(log => log.mdl_user.id === user.id) : logs;
 
-    useEffect(() => {
-        async function fetchLogs() {
-            const response = await fetch('/api/user/userLogs');
-            const data = await response.json();
-            setLogs(data);
+    const filteredLogs = useMemo(() => {
+        // Función donde filtramos los fichajes según el rol del usuario logueado
+        if (!user) return logs;
+
+        if (user.role === 'student') {
+            return logs.filter(log => log.mdl_user.id === user.id);
+        } else if (user.role === 'teacher') {
+            return logs.filter(log => log.mdl_user.role === 'student' || log.mdl_user.id === user.id);
         }
-        fetchLogs();
-    }, []);
+        return logs;
+    }, [logs, user]);
 
     return (
         <>
