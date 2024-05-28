@@ -1,15 +1,15 @@
 import { Metadata } from "next";
 import { APP_NAME } from "@/lib/constants";
-import Login from "@/components/auth/login/form";
+import Dashboard from "@/components/layouts/dashboard";
 
 export function generateMetadata(): Metadata {
     return {
-        title: `${APP_NAME} - Iniciar Sesión`,
+        title: `${APP_NAME} - Inicio`,
     };
 };
 
 export default function Page() {
     return (
-        <Login />
+        <Dashboard />
     );
 }
