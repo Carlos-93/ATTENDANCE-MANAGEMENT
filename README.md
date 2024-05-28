@@ -8,7 +8,9 @@ This is a [Next.js 14](https://nextjs.org/) project bootstrapped with [`create-n
 
 ### Prerequisites
 
-Make sure you have Node.js and npm installed on your machine. You can download Node.js from [here](https://nodejs.org/).
+Make sure you have Node.js and npm installed on your machine. 
+
+You can download Node.js from [here](https://nodejs.org/).
 
 ### Installation
 
