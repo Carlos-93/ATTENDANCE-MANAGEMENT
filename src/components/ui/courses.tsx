@@ -1,6 +1,8 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { useFetchCourses } from '@/hooks/useFetchCourses';
 import { useIsAdmin } from '@/hooks/useRole';
+import { Course } from '@/types/courses/_types';
+
 import DeleteCourseModal from '../layouts/deleteCourse';
 import UpdateCourseModal from '../layouts/updateCourse';
 
@@ -8,8 +10,8 @@ const Courses: React.FC = () => {
     const [menuVisible, setMenuVisible] = useState<number | null>(null);
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
     const [updateModalOpen, setUpdateModalOpen] = useState<boolean>(false);
-    const [courseToDelete, setCourseToDelete] = useState<{ id: number; title: string } | null>(null);
-    const [courseToUpdate, setCourseToUpdate] = useState<{ id: number; title: string; description: string } | null>(null);
+    const [courseToDelete, setCourseToDelete] = useState<Course | null>(null);
+    const [courseToUpdate, setCourseToUpdate] = useState<Course | null>();
 
     const menuRef = useRef<HTMLDivElement | null>(null);
     const courses = useFetchCourses();
@@ -17,6 +19,7 @@ const Courses: React.FC = () => {
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
+            // Función donde cerramos el menú del curso si se hace click fuera de él
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setMenuVisible(null);
             }
@@ -28,25 +31,30 @@ const Courses: React.FC = () => {
     }, []);
 
     const handleMenuToggle = useCallback((index: number) => {
+        // Función donde mostramos el menú del curso al hacer click en el botón de opciones
         setMenuVisible(menuVisible === index ? null : index);
     }, [menuVisible]);
 
-    const handleDeleteClick = (courseId: number, courseTitle: string) => {
-        setCourseToDelete({ id: courseId, title: courseTitle });
+    const handleDeleteClick = (courseId: number, courseShortname: string) => {
+        // Función donde mostramos el modal de confirmación para eliminar el curso
+        setCourseToDelete({ id: courseId, shortname: courseShortname, longname: '' });
         setDeleteModalOpen(true);
     };
 
-    const handleUpdateClick = (course: any) => {
-        setCourseToUpdate({ id: course.id, title: course.shortname, description: course.longname });
+    const handleUpdateClick = (course: Course) => {
+        // Función donde mostramos el modal para editar el curso
+        setCourseToUpdate({ id: course.id, shortname: course.shortname, longname: course.longname });
         setUpdateModalOpen(true);
     };
 
     const closeDeleteModal = () => {
+        // Función donde cerramos el modal de confirmación para eliminar el curso
         setDeleteModalOpen(false);
         setCourseToDelete(null);
     };
 
     const closeUpdateModal = () => {
+        // Función donde cerramos el modal para editar el curso
         setUpdateModalOpen(false);
         setCourseToUpdate(null);
     };
@@ -86,28 +94,25 @@ const Courses: React.FC = () => {
                         </div>
                     ))
                 ) : (
-                    <p className="text-white">No hay cursos registrados</p>
+                    <p className="text-white">No hay cursos registrados en Moodle</p>
                 )}
             </section>
             {courseToDelete && (
-                <DeleteCourseModal 
-                    courseTitle={courseToDelete.title} 
-                    courseId={courseToDelete.id} 
-                    isOpen={deleteModalOpen} 
-                    onClose={closeDeleteModal} 
-                />
+                <DeleteCourseModal
+                    courseShortname={courseToDelete.shortname}
+                    courseId={courseToDelete.id}
+                    isOpen={deleteModalOpen}
+                    onClose={closeDeleteModal} />
             )}
             {courseToUpdate && (
-                <UpdateCourseModal 
-                    courseTitle={courseToUpdate.title} 
-                    courseId={courseToUpdate.id} 
-                    isOpen={updateModalOpen} 
-                    onClose={closeUpdateModal} 
-                    courseDescription={courseToUpdate.description} 
-                />
+                <UpdateCourseModal
+                    courseShortname={courseToUpdate.shortname}
+                    courseId={courseToUpdate.id}
+                    isOpen={updateModalOpen}
+                    onClose={closeUpdateModal}
+                    courseLongname={courseToUpdate.longname} />
             )}
         </>
     );
 };
-
 export default Courses;

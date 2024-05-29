@@ -1,3 +1,5 @@
+import { Course } from "@/types/courses/_types";
+
 export async function deleteCourse(id: number) {
     try {
         const response = await fetch('/api/courses', {
@@ -16,7 +18,7 @@ export async function deleteCourse(id: number) {
     }
 };
 
-export async function editCourse(id: number, data: any) {
+export async function editCourse(id: number, data: Course) {
     try {
         const response = await fetch(`/api/courses/${id}`, {
             method: 'PUT',

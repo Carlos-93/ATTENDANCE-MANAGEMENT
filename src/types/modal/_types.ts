@@ -1,10 +1,10 @@
 export interface DeleteCourseModalProps {
-    courseTitle: string;
+    courseShortname: string;
     courseId: number;
     isOpen: boolean;
     onClose: () => void;
 }
 
 export interface UpdateCourseModalProps extends DeleteCourseModalProps {
-    courseDescription: string;
+    courseLongname: string;
 }
