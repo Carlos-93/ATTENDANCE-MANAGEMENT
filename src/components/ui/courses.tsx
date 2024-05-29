@@ -41,9 +41,9 @@ const Courses: React.FC = () => {
         setDeleteModalOpen(true);
     };
 
-    const handleUpdateClick = (course: Course) => {
+    const handleUpdateClick = (courseId: number, courseShortname: string, courseLongname: string) => {
         // Función donde mostramos el modal para editar el curso
-        setCourseToUpdate({ id: course.id, shortname: course.shortname, longname: course.longname });
+        setCourseToUpdate({ id: courseId, shortname: courseShortname, longname: courseLongname });
         setUpdateModalOpen(true);
     };
 
@@ -85,7 +85,7 @@ const Courses: React.FC = () => {
                             <p className="font-semibold">{course.longname}</p>
                             {menuVisible === index && (
                                 <div ref={menuRef} className="absolute top-7 right-2 bg-gray-700 text-white font-medium shadow-lg z-10 rounded-lg">
-                                    <button onClick={() => handleUpdateClick(course)}
+                                    <button onClick={() => handleUpdateClick(course.id, course.shortname, course.longname)}
                                         className="flex py-3 px-10 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-t-lg">Editar curso</button>
                                     <button onClick={() => handleDeleteClick(course.id, course.shortname)}
                                         className="flex py-3 px-10 hover:bg-gray-600 w-full hover:text-red-500 transition-all ease-in-out duration-300 rounded-b-lg">Eliminar curso</button>
