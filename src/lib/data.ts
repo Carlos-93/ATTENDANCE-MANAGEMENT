@@ -3,6 +3,7 @@
 import prisma from './prisma';
 import bcrypt from "bcrypt";
 import { cookies } from 'next/headers';
+import { Course } from '@/types/courses/_types';
 import { decodeToken, generateAccessToken } from '@/services/jwt';
 
 export default async function validate(email: string, password: string): Promise<any> {
@@ -53,6 +54,7 @@ export async function getUserSession() {
                 id: decoded.userId
             },
             select: {
+                id: true,
                 firstname: true,
                 lastname: true,
                 email: true,
@@ -117,7 +119,6 @@ export async function getCourses() {
             select: {
                 shortname: true,
                 longname: true,
-                imagesrc: true
             }
         });
 
@@ -125,5 +126,60 @@ export async function getCourses() {
     } catch (error) {
         console.error('Error al obtener los cursos:', error);
         return [];
+    }
+}
+
+export async function createCourse(course: Course) {
+    // Función asincrónica donde se crea un nuevo curso en Moodle
+    try {
+        const newCourse = await prisma.mdl_course.create({
+            data: {
+                shortname: course.shortname,
+                longname: course.longname,
+            }
+        });
+
+        return newCourse;
+    } catch (error) {
+        console.error('Error al crear el curso:', error);
+        return null;
+    }
+}
+
+
+export async function updateCourse(id: number, course: Course) {
+    // Función asincrónica donde se actualiza un curso existente en Moodle
+    try {
+        const updatedCourse = await prisma.mdl_course.update({
+            where: {
+                id
+            },
+            data: {
+                shortname: course.shortname,
+                longname: course.longname,
+            }
+        });
+
+        return updatedCourse;
+    } catch (error) {
+        console.error('Error al actualizar el curso:', error);
+        return null;
+    }
+}
+
+
+export async function deleteCourse(id: number) {
+    // Función asincrónica donde se elimina un curso de Moodle
+    try {
+        await prisma.mdl_course.delete({
+            where: {
+                id
+            }
+        });
+
+        return true;
+    } catch (error) {
+        console.error('Error al eliminar el curso:', error);
+        return false;
     }
 }
