@@ -1,8 +1,9 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from 'react';
+import { deleteCourse, editCourse } from '@/services/course';
 import { useFetchCourses } from '@/hooks/useFetchCourses';
-import { useIsAdmin } from '@/hooks/useIsAdmin';
+import { useIsAdmin } from '@/hooks/useRole';
 
 export default function Courses() {
     const [menuVisible, setMenuVisible] = useState<number | null>(null);
@@ -29,25 +30,11 @@ export default function Courses() {
         setMenuVisible(menuVisible === index ? null : index);
     }, [menuVisible]);
 
-    const handleDeleteCourse = useCallback(async (id: number) => {
-        // Función para eliminar un curso almacenado en Moodle
-        try {
-            const response = await fetch('/api/courses', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id }),
-            });
-            if (response.ok) { setMenuVisible(null); }
-        } catch (error) {
-            console.error('Error al eliminar el curso:', error);
-        }
-    }, []);
-
     return (
         <>
-            <p className='text-2xl md:text-3xl lg:text-4xl font-medium text-teal-400 mb-14'>Tus cursos</p>
+            <p className='text-2xl md:text-3xl lg:text-4xl font-medium text-teal-400 mb-14'>
+                {isAdmin ? 'Todos los cursos' : 'Tus cursos'}
+            </p>
             <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full">
                 {courses.length > 0 ? (
                     courses.map((course, index) => (
@@ -69,9 +56,10 @@ export default function Courses() {
                             <p className="font-semibold">{course.longname}</p>
                             {menuVisible === index && (
                                 <div ref={menuRef} className="absolute top-7 right-2 bg-gray-700 text-white font-medium shadow-lg z-10 rounded-lg">
-                                    <button className="flex py-3 pl-3 pr-14 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-t-lg">Editar curso</button>
-                                    <button onClick={() => handleDeleteCourse(course.id)}
-                                        className="flex py-3 pl-3 pr-14 hover:bg-gray-600 w-full hover:text-red-500 transition-all ease-in-out duration-300 rounded-b-lg">Eliminar curso</button>
+                                    <button onClick={() => editCourse(course.id, { shortname: 'Nuevo nombre' })}
+                                        className="flex py-3 px-10 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-t-lg">Editar curso</button>
+                                    <button onClick={() => deleteCourse(course.id)}
+                                        className="flex py-3 px-10 hover:bg-gray-600 w-full hover:text-red-500 transition-all ease-in-out duration-300 rounded-b-lg">Eliminar curso</button>
                                 </div>
                             )}
                         </div>

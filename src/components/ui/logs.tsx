@@ -4,16 +4,21 @@ import { useFetchLogs } from '@/hooks/useFetchLogs';
 import { useFetchUser } from '@/hooks/useFetchUser';
 import { UserLogs } from '@/types/user/_types';
 import { useMemo } from 'react';
+import { useIsAdmin, useIsTeacher, useIsStudent } from '@/hooks/useRole';
 import Image from 'next/image';
 
 export default function Logs() {
     const logs = useFetchLogs();
     const user = useFetchUser();
+    const isAdmin = useIsAdmin();
+    const isTeacher = useIsTeacher();
+    const isStudent = useIsStudent();
 
     const today = new Date();
     const currentDate = today.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
     const isLate = (dateString: string) => {
+        // Función para determinar si la hora de entrada es tarde
         if (!dateString) return false;
         const date = new Date(dateString);
         const hours = date.getHours();
@@ -22,21 +27,23 @@ export default function Logs() {
     };
 
     const filteredLogs = useMemo(() => {
+        // Función para filtrar los fichajes según el rol del usuario
         if (!user) return logs;
 
-        if (user.role === 'student') {
+        if (isStudent) {
             return logs.filter(log => log.mdl_user.id === user.id);
-        } else if (user.role === 'teacher') {
+        } else if (isTeacher) {
             return logs.filter(log => log.mdl_user.role === 'student' || log.mdl_user.id === user.id);
         }
         return logs;
 
-    }, [logs, user]);
+    }, [logs, user, isStudent, isTeacher]);
 
     const studentsLogs = filteredLogs.filter(log => log.mdl_user.role === 'student');
     const teachersLogs = filteredLogs.filter(log => log.mdl_user.role === 'teacher');
 
     const viewLogs = (logs: UserLogs[]) => (
+        // Función para mostrar los fichajes en la interfaz
         <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full">
             {logs.map((log) => (
                 <li key={log.id} className="flex flex-col bg-gray-800 text-white p-4 rounded-lg">
@@ -61,10 +68,10 @@ export default function Logs() {
     return (
         <>
             <p className='text-2xl md:text-3xl lg:text-4xl font-medium text-teal-400 mb-14 mt-24'>
-                {user && user.role === 'student' ? 'Tus fichajes de hoy' : 'Fichajes de hoy'} - {currentDate}
+                {isStudent ? 'Tus fichajes de hoy' : 'Fichajes de hoy'} - {currentDate}
             </p>
             <section className='w-full'>
-                {user && (user.role === 'admin') && (
+                {isAdmin && (
                     <>
                         <p className="text-lg md:text-xl lg:text-2xl font-medium text-white mb-4">Profesores</p>
                         {teachersLogs.length > 0 ? viewLogs(teachersLogs) : <p className="text-white">No hay fichajes registrados para profesores hoy</p>}
@@ -72,14 +79,14 @@ export default function Logs() {
                         {studentsLogs.length > 0 ? viewLogs(studentsLogs) : <p className="text-white">No hay fichajes registrados para alumnos hoy</p>}
                     </>
                 )}
-                {user && user.role === 'teacher' && (
+                {isTeacher && (
                     <>
                         {teachersLogs.length > 0 ? viewLogs(teachersLogs) : <p className="text-white">No hay fichajes registrados para ti hoy</p>}
                         <p className="text-lg md:text-xl lg:text-2xl font-medium text-white mt-14 mb-4">Tus Alumnos</p>
                         {studentsLogs.length > 0 ? viewLogs(studentsLogs) : <p className="text-white">No hay fichajes registrados para tus alumnos hoy</p>}
                     </>
                 )}
-                {user && user.role === 'student' && (
+                {isStudent && (
                     <>
                         {studentsLogs.length > 0 ? viewLogs(studentsLogs) : <p className="text-white">No hay fichajes registrados para ti hoy</p>}
                     </>

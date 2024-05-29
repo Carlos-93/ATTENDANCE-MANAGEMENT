@@ -11,10 +11,6 @@ export function useFetchCourses() {
             setCourses(data);
         }
         fetchCourses();
-
-        const intervalId = setInterval(fetchCourses, 1000);
-
-        return () => clearInterval(intervalId);
     }, []);
 
     return courses;
