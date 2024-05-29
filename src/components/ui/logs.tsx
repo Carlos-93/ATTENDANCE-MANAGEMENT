@@ -4,11 +4,12 @@ import { useIsAdmin, useIsTeacher, useIsStudent } from '@/hooks/useRole';
 import { useFetchLogs } from '@/hooks/useFetchLogs';
 import { useFetchUser } from '@/hooks/useFetchUser';
 import { UserLogs } from '@/types/user/_types';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import Image from 'next/image';
 
 export default function Logs() {
+    const [filter, setFilter] = useState('all');
     const logs = useFetchLogs();
     const user = useFetchUser();
     const isAdmin = useIsAdmin();
@@ -31,14 +32,21 @@ export default function Logs() {
         // Función para filtrar los fichajes según el rol del usuario
         if (!user) return logs;
 
-        if (isStudent) {
-            return logs.filter(log => log.mdl_user.id === user.id);
-        } else if (isTeacher) {
-            return logs.filter(log => log.mdl_user.role === 'student' || log.mdl_user.id === user.id);
-        }
-        return logs;
+        let userLogs = logs;
 
-    }, [logs, user, isStudent, isTeacher]);
+        if (isStudent) {
+            userLogs = logs.filter(log => log.mdl_user.id === user.id);
+        } else if (isTeacher) {
+            userLogs = logs.filter(log => log.mdl_user.role === 'student' || log.mdl_user.id === user.id);
+        }
+        if (filter === 'outside') {
+            return userLogs.filter(log => isLate(log.input));
+        } else if (filter === 'inside') {
+            return userLogs.filter(log => !isLate(log.input));
+        }
+        return userLogs;
+
+    }, [logs, user, isStudent, isTeacher, filter]);
 
     const studentsLogs = filteredLogs.filter(log => log.mdl_user.role === 'student');
     const teachersLogs = filteredLogs.filter(log => log.mdl_user.role === 'teacher');
@@ -71,6 +79,19 @@ export default function Logs() {
             <p className='text-2xl md:text-3xl lg:text-4xl font-medium text-teal-400 mb-14 mt-24'>
                 {isStudent ? 'Tus fichajes de hoy' : 'Fichajes de hoy'} - {currentDate}
             </p>
+            {(isAdmin || isTeacher) && (
+                <>
+                    <div className="flex items-center mb-7 gap-5">
+                        <label htmlFor="filter" className="text-white font-medium text-lg">Filtrar fichajes:</label>
+                        <select id="filter" value={filter} onChange={(e) => setFilter(e.target.value)} className="p-2 rounded bg-gray-700 text-white focus:outline-none">
+                            <option value="all">Todos</option>
+                            <option value="outside">Fichaje fuera del horario</option>
+                            <option value="inside">Fichaje dentro del horario</option>
+                        </select>
+                    </div>
+                    <div className="w-full h-0.5 bg-teal-400 mb-7"></div>
+                </>
+            )}
             <section className='w-full'>
                 {isAdmin && (
                     <>
