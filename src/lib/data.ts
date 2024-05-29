@@ -1,10 +1,11 @@
 'use server';
 
+import { decodeToken, generateAccessToken } from '@/services/jwt';
+import { Course } from '@/types/courses/_types';
+import { cookies } from 'next/headers';
+
 import prisma from './prisma';
 import bcrypt from "bcrypt";
-import { cookies } from 'next/headers';
-import { Course } from '@/types/courses/_types';
-import { decodeToken, generateAccessToken } from '@/services/jwt';
 
 export default async function validate(email: string, password: string): Promise<any> {
     // Función donde se verifica si las credenciales del usuario son correctas
