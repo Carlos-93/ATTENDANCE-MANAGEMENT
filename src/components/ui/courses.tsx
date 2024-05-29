@@ -12,6 +12,7 @@ export default function Courses() {
     const isAdmin = useIsAdmin();
 
     useEffect(() => {
+        // Effect donde se maneja el cierre del menú de opciones del curso
         function handleClickOutside(event: MouseEvent) {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setMenuVisible(null);
@@ -24,8 +25,25 @@ export default function Courses() {
     }, []);
 
     const handleMenuToggle = useCallback((index: number) => {
+        // Función donde se maneja la visibilidad del menú de opciones del curso
         setMenuVisible(menuVisible === index ? null : index);
     }, [menuVisible]);
+
+    const handleDeleteCourse = useCallback(async (id: number) => {
+        // Función para eliminar un curso almacenado en Moodle
+        try {
+            const response = await fetch('/api/courses', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id }),
+            });
+            if (response.ok) { setMenuVisible(null); }
+        } catch (error) {
+            console.error('Error al eliminar el curso:', error);
+        }
+    }, []);
 
     return (
         <>
@@ -50,9 +68,10 @@ export default function Courses() {
                             <p className="font-semibold">{course.shortname}</p>
                             <p className="font-semibold">{course.longname}</p>
                             {menuVisible === index && (
-                                <div ref={menuRef} className="absolute top-7 right-2 bg-gray-700 text-white shadow-lg z-10 rounded-lg">
+                                <div ref={menuRef} className="absolute top-7 right-2 bg-gray-700 text-white font-medium shadow-lg z-10 rounded-lg">
                                     <button className="flex py-3 pl-3 pr-14 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-t-lg">Editar curso</button>
-                                    <button className="flex py-3 pl-3 pr-14 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-b-lg">Eliminar curso</button>
+                                    <button onClick={() => handleDeleteCourse(course.id)}
+                                        className="flex py-3 pl-3 pr-14 hover:bg-gray-600 w-full hover:text-red-500 transition-all ease-in-out duration-300 rounded-b-lg">Eliminar curso</button>
                                 </div>
                             )}
                         </div>

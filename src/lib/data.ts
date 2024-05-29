@@ -117,6 +117,7 @@ export async function getCourses() {
     try {
         const courses = await prisma.mdl_course.findMany({
             select: {
+                id: true,
                 shortname: true,
                 longname: true,
             }
@@ -134,6 +135,7 @@ export async function createCourse(course: Course) {
     try {
         const newCourse = await prisma.mdl_course.create({
             data: {
+                id: course.id,
                 shortname: course.shortname,
                 longname: course.longname,
             }
