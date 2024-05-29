@@ -15,6 +15,7 @@ export default function Courses() {
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
+            // Functión donde cerramos el menú del curso si se hace click fuera de él
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setMenuVisible(null);
             }
@@ -26,15 +27,18 @@ export default function Courses() {
     }, []);
 
     const handleMenuToggle = useCallback((index: number) => {
+        // Función donde mostramos el menú editar y eliminar curso
         setMenuVisible(menuVisible === index ? null : index);
     }, [menuVisible]);
 
     const handleDeleteClick = (courseId: number, courseTitle: string) => {
+        // Función donde mostramos el modal para eliminar el curso
         setCourseToDelete({ id: courseId, title: courseTitle });
         setModalOpen(true);
     };
 
     const closeModal = () => {
+        // Función donde cerramos el modal de eliminar curso
         setModalOpen(false);
         setCourseToDelete(null);
     };
@@ -78,12 +82,7 @@ export default function Courses() {
                 )}
             </section>
             {courseToDelete && (
-                <DeleteCourseModal
-                    courseTitle={courseToDelete.title}
-                    courseId={courseToDelete.id}
-                    isOpen={modalOpen}
-                    onClose={closeModal}
-                />
+                <DeleteCourseModal courseTitle={courseToDelete.title} courseId={courseToDelete.id} isOpen={modalOpen} onClose={closeModal} />
             )}
         </>
     );
