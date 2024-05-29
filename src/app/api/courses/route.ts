@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getCourses, createCourse, updateCourse, deleteCourse } from '@/lib/data';
+import { getCourses, updateCourse, deleteCourse } from '@/lib/data';
 
 export async function GET(req: Request) {
   // Controlador GET para obtener todos los cursos de Moodle
@@ -11,18 +11,6 @@ export async function GET(req: Request) {
     return NextResponse.json(courses);
   } catch (error) {
     console.error('Error al procesar la solicitud GET:', error);
-    return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 });
-  }
-}
-
-export async function POST(req: Request) {
-  // Controlador POST para crear un nuevo curso en Moodle
-  try {
-    const data = await req.json();
-    const newCourse = await createCourse(data);
-    return NextResponse.json(newCourse, { status: 201 });
-  } catch (error) {
-    console.error('Error al procesar la solicitud POST:', error);
     return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 });
   }
 }

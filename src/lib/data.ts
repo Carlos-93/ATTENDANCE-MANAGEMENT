@@ -130,25 +130,6 @@ export async function getCourses() {
     }
 }
 
-export async function createCourse(course: Course) {
-    // Función asincrónica donde se crea un nuevo curso en Moodle
-    try {
-        const newCourse = await prisma.mdl_course.create({
-            data: {
-                id: course.id,
-                shortname: course.shortname,
-                longname: course.longname,
-            }
-        });
-
-        return newCourse;
-    } catch (error) {
-        console.error('Error al crear el curso:', error);
-        return null;
-    }
-}
-
-
 export async function updateCourse(id: number, course: Course) {
     // Función asincrónica donde se actualiza un curso existente en Moodle
     try {

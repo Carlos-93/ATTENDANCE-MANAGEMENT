@@ -1,10 +1,10 @@
 'use client';
 
+import { useIsAdmin, useIsTeacher, useIsStudent } from '@/hooks/useRole';
 import { useFetchLogs } from '@/hooks/useFetchLogs';
 import { useFetchUser } from '@/hooks/useFetchUser';
 import { UserLogs } from '@/types/user/_types';
 import { useMemo } from 'react';
-import { useIsAdmin, useIsTeacher, useIsStudent } from '@/hooks/useRole';
 import Image from 'next/image';
 
 export default function Logs() {
