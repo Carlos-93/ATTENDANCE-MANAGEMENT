@@ -1,24 +1,24 @@
-'use client';
-
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { deleteCourse, editCourse } from '@/services/course';
+import { editCourse } from '@/services/course';
 import { useFetchCourses } from '@/hooks/useFetchCourses';
 import { useIsAdmin } from '@/hooks/useRole';
+import DeleteCourseModal from '../layouts/deleteCourse';
 
 export default function Courses() {
     const [menuVisible, setMenuVisible] = useState<number | null>(null);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [courseToDelete, setCourseToDelete] = useState<{ id: number; title: string } | null>(null);
 
     const menuRef = useRef<HTMLDivElement | null>(null);
     const courses = useFetchCourses();
     const isAdmin = useIsAdmin();
 
     useEffect(() => {
-        // Effect donde se maneja el cierre del menú de opciones del curso
         function handleClickOutside(event: MouseEvent) {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setMenuVisible(null);
             }
-        };
+        }
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -26,9 +26,18 @@ export default function Courses() {
     }, []);
 
     const handleMenuToggle = useCallback((index: number) => {
-        // Función donde se maneja la visibilidad del menú de opciones del curso
         setMenuVisible(menuVisible === index ? null : index);
     }, [menuVisible]);
+
+    const handleDeleteClick = (courseId: number, courseTitle: string) => {
+        setCourseToDelete({ id: courseId, title: courseTitle });
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+        setCourseToDelete(null);
+    };
 
     return (
         <>
@@ -58,7 +67,7 @@ export default function Courses() {
                                 <div ref={menuRef} className="absolute top-7 right-2 bg-gray-700 text-white font-medium shadow-lg z-10 rounded-lg">
                                     <button onClick={() => editCourse(course.id, { shortname: 'Nuevo nombre' })}
                                         className="flex py-3 px-10 hover:bg-gray-600 w-full hover:text-teal-400 transition-all ease-in-out duration-300 rounded-t-lg">Editar curso</button>
-                                    <button onClick={() => deleteCourse(course.id)}
+                                    <button onClick={() => handleDeleteClick(course.id, course.shortname)}
                                         className="flex py-3 px-10 hover:bg-gray-600 w-full hover:text-red-500 transition-all ease-in-out duration-300 rounded-b-lg">Eliminar curso</button>
                                 </div>
                             )}
@@ -68,6 +77,14 @@ export default function Courses() {
                     <p className="text-white">No hay cursos registrados</p>
                 )}
             </section>
+            {courseToDelete && (
+                <DeleteCourseModal
+                    courseTitle={courseToDelete.title}
+                    courseId={courseToDelete.id}
+                    isOpen={modalOpen}
+                    onClose={closeModal}
+                />
+            )}
         </>
     );
 }
