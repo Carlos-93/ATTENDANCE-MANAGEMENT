@@ -7,19 +7,20 @@ const DeleteCourseModal: React.FC<DeleteCourseModalProps> = ({ courseTitle, cour
         try {
             await deleteCourse(courseId);
             onClose();
+            window.location.reload();
         } catch (error) {
             console.error('Error deleting course:', error);
         }
     };
-    
+
     if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="fixed inset-0 backdrop-blur-md bg-black/50 transition-opacity" aria-hidden="true"></div>
-            <div className="relative bg-white rounded-lg max-w-md p-6">
+            <div className="fixed inset-0 backdrop-blur-md bg-black/80 transition-opacity" aria-hidden="true"></div>
+            <div className="flex flex-col relative bg-white rounded-lg max-w-md p-6 shadow">
                 <div className="flex justify-between items-center border-b border-gray-200 pb-4 mb-4">
-                    <h2 className="text-lg font-semibold">Eliminar Curso &quot;{courseTitle}&quot;</h2>
+                    <h2 className="text-xl font-semibold">Eliminar Curso &quot;{courseTitle}&quot;</h2>
                 </div>
                 <div className="mb-6">
                     <p className="text-gray-700">
@@ -31,10 +32,10 @@ const DeleteCourseModal: React.FC<DeleteCourseModalProps> = ({ courseTitle, cour
                 <div className="flex justify-end">
                     <button
                         onClick={handleDelete}
-                        className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-500 mr-2 font-medium transition-all ease-in-out duration-300">Eliminar</button>
+                        className="px-4 py-2 text-white rounded bg-red-600 hover:bg-red-500 mr-2 font-semibold transition-all ease-in-out duration-300">Eliminar</button>
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400 font-medium transition-all ease-in-out duration-300">Cancelar</button>
+                        className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 font-semibold transition-all ease-in-out duration-200">Cancelar</button>
                 </div>
             </div>
         </div>

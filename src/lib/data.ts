@@ -169,7 +169,6 @@ export async function updateCourse(id: number, course: Course) {
     }
 }
 
-
 export async function deleteCourse(id: number) {
     // Función asincrónica donde se elimina un curso de Moodle
     try {

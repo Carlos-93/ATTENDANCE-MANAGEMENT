@@ -7,7 +7,6 @@ export async function deleteCourse(id: number) {
             },
             body: JSON.stringify({ id }),
         });
-        window.location.reload();
         if (!response.ok) {
             throw new Error('Error al eliminar el curso');
         }
@@ -26,7 +25,6 @@ export async function editCourse(id: number, data: any) {
             },
             body: JSON.stringify(data),
         });
-        window.location.reload();
         if (!response.ok) {
             throw new Error('Error al editar el curso');
         }

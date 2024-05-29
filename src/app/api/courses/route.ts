@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 }
 
 export async function PUT(req: Request) {
-  // Controlador PUT para actualizar un curso existente en Moodle
+  // Controlador PUT para actualizar un curso en Moodle
   try {
     const data = await req.json();
     const updatedCourse = await updateCourse(data.id, data);

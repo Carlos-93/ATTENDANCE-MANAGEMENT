@@ -5,7 +5,7 @@ export interface User {
     firstname: string;
     lastname: string;
     email: string;
-    imagesrc?: string;
+    imagesrc?: string | null;
 }
 
 export interface UserLogs {
@@ -18,6 +18,6 @@ export interface UserLogs {
         role: string;
         firstname: string;
         lastname: string;
-        imagesrc?: string;
+        imagesrc?: string | null;
     };
 }
