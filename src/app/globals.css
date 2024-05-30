@@ -2,29 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+*::-webkit-scrollbar {
+    display: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+.bg-app {
+    background-image: url('/assets/images/bg.webp');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.shadow-logo,
+.hover-shadow {
+    transition: all 0.3s ease-in-out;
+}
+
+.shadow-logo:hover {
+    filter: drop-shadow(0 0 10px #00463d);
+}
+
+.shadow {
+    box-shadow: 0 0 20px 0 #14b8a6;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 0 20px 0 #14b8a6;
+    color: #14b8a6;
 }
