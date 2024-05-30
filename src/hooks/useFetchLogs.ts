@@ -11,8 +11,6 @@ export function useFetchLogs() {
             setLogs(data);
         }
         fetchLogs();
-        const interval = setInterval(fetchLogs, 1000);
-        return () => clearInterval(interval);
     }, []);
 
     return logs;
