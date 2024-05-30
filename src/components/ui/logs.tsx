@@ -1,10 +1,10 @@
 'use client';
 
 import { useIsAdmin, useIsTeacher, useIsStudent } from '@/hooks/useRole';
+import { useMemo, useState } from 'react';
 import { useFetchLogs } from '@/hooks/useFetchLogs';
 import { useFetchUser } from '@/hooks/useFetchUser';
 import { UserLogs } from '@/types/user/_types';
-import { useMemo, useState } from 'react';
 
 import Image from 'next/image';
 
