@@ -76,12 +76,12 @@ export default function Logs() {
 
     return (
         <>
-            <p className='text-2xl md:text-3xl lg:text-4xl font-medium text-teal-400'>
+            <p className='text-2xl md:text-3xl lg:text-4xl font-medium text-teal-400 mb-14'>
                 {isStudent ? 'Tus fichajes de hoy' : 'Fichajes de hoy'} - {currentDate}
             </p>
             {(isAdmin || isTeacher) && (
                 <>
-                    <div className="flex items-center gap-5 my-14">
+                    <div className="flex items-center gap-5 mb-14">
                         <label htmlFor="filter" className="text-white font-medium text-lg">Filtrar fichajes:</label>
                         <select id="filter" value={filter} onChange={(e) => setFilter(e.target.value)} className="p-2 rounded bg-gray-700 text-white focus:outline-none">
                             <option value="all">Todos</option>
