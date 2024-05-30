@@ -76,12 +76,12 @@ export default function Logs() {
 
     return (
         <>
-            <p className='text-2xl md:text-3xl lg:text-4xl font-medium text-teal-400 mb-14 mt-24'>
+            <p className='text-2xl md:text-3xl lg:text-4xl font-medium text-teal-400'>
                 {isStudent ? 'Tus fichajes de hoy' : 'Fichajes de hoy'} - {currentDate}
             </p>
             {(isAdmin || isTeacher) && (
                 <>
-                    <div className="flex items-center mb-7 gap-5">
+                    <div className="flex items-center gap-5 my-14">
                         <label htmlFor="filter" className="text-white font-medium text-lg">Filtrar fichajes:</label>
                         <select id="filter" value={filter} onChange={(e) => setFilter(e.target.value)} className="p-2 rounded bg-gray-700 text-white focus:outline-none">
                             <option value="all">Todos</option>
@@ -89,7 +89,6 @@ export default function Logs() {
                             <option value="inside">Fichaje dentro del horario</option>
                         </select>
                     </div>
-                    <div className="w-full h-0.5 bg-teal-400 mb-7"></div>
                 </>
             )}
             <section className='w-full'>
