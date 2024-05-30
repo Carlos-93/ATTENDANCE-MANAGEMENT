@@ -67,9 +67,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Password: admin123
 - Role: Admin
 
+
 - Email: robertoman@campus.monlau.com
 - Password: teacher123
 - Role: Teacher
+
 
 - Email: carlosaragal@campus.monlau.com
 - Password: student123
