@@ -20,12 +20,19 @@ export default function Logs() {
     const currentDate = today.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
     const isLate = (dateString: string) => {
-        // Función para determinar si la hora de entrada es tarde
+        // Función para determinar si un fichaje es tarde o no
         if (!dateString) return false;
+
         const date = new Date(dateString);
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        return (hours > 8 || (hours === 8 && minutes > 0)) && (hours < 15 || (hours === 15 && minutes < 10));
+        const spainTime = date.toLocaleString('en-US', { timeZone: 'Europe/Madrid' });
+        const spainDate = new Date(spainTime);
+        const hours = spainDate.getHours();
+        const minutes = spainDate.getMinutes();
+        const time = hours * 60 + minutes;
+        const isMorning = time >= 481 && time <= 870;
+        const isAfternoon = time >= 911 && time <= 1230;
+
+        return isMorning || isAfternoon;
     };
 
     const filteredLogs = useMemo(() => {
@@ -64,9 +71,9 @@ export default function Logs() {
                         <div className='flex flex-col text-end gap-1'>
                             <p className="font-semibold text-lg text-white">{log.mdl_user.firstname} {log.mdl_user.lastname}</p>
                             <p className="text-gray-300">Entrada: <span className={isLate(log.input) ? "text-red-500" : "text-green-500"}>
-                                {log.input ? new Date(log.input).toLocaleString() : 'N/A'}</span>
+                                {log.input ? new Date(log.input).toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }) : 'N/A'}</span>
                             </p>
-                            <p className="text-gray-300">Salida: {log.output ? new Date(log.output).toLocaleString() : 'N/A'}</p>
+                            <p className="text-gray-300">Salida: {log.output ? new Date(log.output).toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }) : 'N/A'}</p>
                         </div>
                     </div>
                 </li>
